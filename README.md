@@ -18,7 +18,7 @@ React + TypeScript + Vite 기반 프론트엔드 프로젝트입니다.
 pnpm install
 
 # 개발 서버 실행
-pnpm dev
+pnpm run dev
 
 # 빌드
 pnpm build
