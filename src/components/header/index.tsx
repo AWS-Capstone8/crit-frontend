@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <div className="flex w-full h-27 justify-between border-b-2 border-black px-6.5">
       <div className="flex items-center gap-12.5">
-        <img src={critLogo} alt="CritLogo" className="[w-159px] h-[77px]" />
+        <img src={critLogo} alt="CritLogo" className="w-[159px] h-[77px]" />
         <div className="flex items-center gap-5">
           <div
             className="flex w-35 h-12.5 py-2.5 justify-center items-center cursor-pointer"
