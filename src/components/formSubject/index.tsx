@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import SubjectItem from '@/components/subjectItem';
+import SubjectItem from '@/components/formSubject/subjectItem';
 import useRecommendStore from '@/stores/useRecommendStore';
 import useAIFormStore from '@/stores/useAIFormStore';
 import { postScript } from '@/api/command';

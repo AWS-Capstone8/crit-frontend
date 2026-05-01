@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import FormContainer from '@/components/formContainer';
-import CheckBox from '@/components/checkBox';
-import TimeSlider from '@/components/timeSlider';
+import FormContainer from '@/components/formList/formContainer';
+import CheckBox from '@/components/formList/checkBox';
+import TimeSlider from '@/components/formList/timeSlider';
 import { postRecommend } from '@/api/command';
 import useRecommendStore from '@/stores/useRecommendStore';
 import { useShallow } from 'zustand/react/shallow';

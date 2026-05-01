@@ -112,6 +112,24 @@
     line-height: 20px;
     letter-spacing: 0;
   }
+
+  /* Typography - Title2 */
+  .typo-title2 {
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+    letter-spacing: -0.875px;
+  }
+
+  /* Typography - Body1 Medium */
+  .typo-body1-medium {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    letter-spacing: 1px;
+  }
 }
 
 /* Script scrollbar */

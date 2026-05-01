@@ -1,5 +1,5 @@
 import useAIFormStore from '@/stores/useAIFormStore';
-import ReferenceList from '@/components/referenceList';
+import ReferenceList from '@/components/formAnswer/scriptEditor/referenceList';
 
 const formatScript = (text: string) => {
   return text.replace(/\[/g, '\n\n[').replace(/\]\s*/g, ']\n').trim();

@@ -1,4 +1,4 @@
-import VideoTitleItem from '@/components/videoTitle/videoTitleItem';
+import VideoTitleItem from '@/components/formAnswer/videoTitle/videoTitleItem';
 import useAIFormStore from '@/stores/useAIFormStore';
 
 const VideoTitle = () => {

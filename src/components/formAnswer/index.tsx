@@ -1,6 +1,6 @@
-import VideoTitle from '@/components/videoTitle';
-import Thumbnail from '@/components/thumbnail';
-import ScriptEditor from '../scriptEditor';
+import VideoTitle from '@/components/formAnswer/videoTitle';
+import Thumbnail from '@/components/formAnswer/thumbnail';
+import ScriptEditor from '@/components/formAnswer/scriptEditor';
 
 const formAnswer = () => {
   return (

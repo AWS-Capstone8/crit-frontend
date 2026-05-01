@@ -5,7 +5,9 @@ import FormList from '@/components/formList';
 import FormAnswer from '@/components/formAnswer';
 import FormSubject from '@/components/formSubject';
 
-const mainPage = () => {
+import Footer from '@/components/footer';
+
+const RecommendPage = () => {
   const [showSubject, setShowSubject] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
@@ -21,7 +23,7 @@ const mainPage = () => {
   return (
     <div>
       <Header />
-      <div className="flex flex-col items-center w-270 mx-auto gap-10">
+      <div className="flex flex-col items-center px-40 gap-10">
         <div className="flex flex-col items-center mt-20 w-full mx-auto">
           <div className="relative z-10 mb-[-32px]">
             <TabList tabs={['롱폼', '숏폼']} />
@@ -35,8 +37,9 @@ const mainPage = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };
 
-export default mainPage;
+export default RecommendPage;
