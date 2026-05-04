@@ -16,7 +16,13 @@ const SubjectItem = ({ subject, subjectContent, selected, onClick }: SubjectItem
             : 'border-[#A594F9] bg-white hover:bg-[#FAFAFE]'
         }`}
     >
-      {subject && <div className="typo-title-bold text-[#0A0A0A]">{subject}</div>}
+      {subject ? (
+        <div className="typo-title-bold text-[#0A0A0A]">{subject}</div>
+      ) : (
+        <div className="typo-title-bold text-gray-400 animate-loading-pulse">
+          주제를 분석하고 있습니다...
+        </div>
+      )}
       {subjectContent && (
         <div className="typo-body2 text-[#717171] whitespace-pre-line">{subjectContent}</div>
       )}

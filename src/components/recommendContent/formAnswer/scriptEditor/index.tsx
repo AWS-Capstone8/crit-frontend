@@ -14,7 +14,11 @@ const ScriptEditor = () => {
       <div className="flex flex-1 flex-col gap-4 animate-fade-in-up">
         <div className="flex w-full typo-title-bold text-[#0A0A0A] items-stretch">AI 대본 초안</div>
         <div className="w-full h-full overflow-y-auto px-3 py-4 rounded-xl bg-[#FAFAFA] border border-[#A594F9] typo-body4-semibold text-black whitespace-pre-line break-keep leading-6 script-scroll">
-          {script ? formatScript(script) : '검색 후 대본이 표시됩니다.'}
+          {script ? (
+            formatScript(script)
+          ) : (
+            <span className="animate-loading-pulse text-gray-400">검색 후 대본이 표시됩니다.</span>
+          )}
         </div>
       </div>
       <div

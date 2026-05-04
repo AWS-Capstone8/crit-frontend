@@ -36,7 +36,9 @@ const ReferenceItem = ({ title, url }: ReferenceItemProps) => {
       onClick={handleClick}
       className="flex py-2 px-3 items-center gap-3 self-stretch rounded-lg border border-[#A594F9] bg-white cursor-pointer hover:bg-[#FAFAFE] transition-colors"
     >
-      <div className="flex-1 typo-body4-semibold text-black truncate">{title}</div>
+      <div className="flex-1 typo-body4-semibold text-black truncate">
+        {title || <span className="text-gray-400 animate-loading-pulse">준비 중입니다...</span>}
+      </div>
       <div
         onClick={handleShare}
         className={`flex items-center gap-1 shrink-0 cursor-pointer ${shared ? 'text-[#6B4EFF]' : 'text-[#0a0a0a89] active:text-[#6B4EFF]'}`}

@@ -15,7 +15,7 @@ const AnalysisPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getChannelAnalysis('https://www.youtube.com/@sunghajung');
+        const res = await getChannelAnalysis('https://www.youtube.com/@T1_Faker'); // 로그인 페이지 활성화시 변경 필요
         setData(res);
       } catch (err) {
         console.error('채널 분석 요청 실패:', err);

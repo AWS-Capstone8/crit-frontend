@@ -12,9 +12,9 @@ const VideoItem = ({ title, thumbnailUrl, score, description }: VideoItemProps) 
 
   return (
     <div className="flex w-full px-7.5 py-6 gap-7.5 self-stretch rounded-xl bg-white border hover:bg-[#F3F0FF] active:bg-[#F3F0FF] border-[#A594F9] hover:border-[#6B42FF] active:border-[#6B42FF]">
-      <div className="flex h-full justify-center items-center aspect-59/34">
+      <div className="w-76 shrink-0 aspect-video rounded-lg overflow-hidden">
         {thumbnailUrl ? (
-          <img src={thumbnailUrl} alt={title} className="w-full h-full object-cover rounded-lg" />
+          <img src={thumbnailUrl} alt={title} className="w-full h-full object-cover" />
         ) : (
           <div className="flex w-full h-full items-center justify-center text-gray-400 typo-body2">
             썸네일이 표시됩니다.

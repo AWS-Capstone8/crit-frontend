@@ -96,7 +96,7 @@ const FormSubject = ({ onSelect }: FormSubjectProps) => {
                 className="animate-fade-in-up w-full flex justify-center"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
-                <SubjectItem selected={selectedIndex === i} onClick={() => handleClick(i)} />
+                <SubjectItem />
               </div>
             ))}
       </div>

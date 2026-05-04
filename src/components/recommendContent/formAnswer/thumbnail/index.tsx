@@ -13,13 +13,15 @@ const Thumbnail = () => {
           {thumbnailImage ? (
             <img src={thumbnailImage} alt="썸네일" className="w-full h-full object-cover" />
           ) : (
-            <div className="flex w-full h-full items-center justify-center text-gray-400 typo-body2">
+            <div className="flex w-full h-full items-center justify-center text-gray-400 typo-body2 animate-loading-pulse">
               썸네일이 표시됩니다.
             </div>
           )}
         </div>
         <div className="w-full px-3 py-3 rounded-lg typo-body4-semibold text-[#0A0A0A] whitespace-pre-line break-keep leading-6">
-          {thumbnailGuide || '썸네일 가이드가 표시됩니다.'}
+          {thumbnailGuide || (
+            <span className="animate-loading-pulse text-gray-400">썸네일 가이드가 표시됩니다.</span>
+          )}
         </div>
       </div>
     </div>
