@@ -2,6 +2,7 @@ import { create } from 'zustand';
 
 interface Channel {
   channelId: string;
+  handle: string;
   name: string;
   profileImageUrl: string;
   subscriberCount: number;
