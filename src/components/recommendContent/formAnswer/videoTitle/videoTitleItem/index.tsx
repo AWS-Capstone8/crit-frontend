@@ -26,7 +26,11 @@ const VideoTitle = ({ title, onRegenerate }: VideoTitleProps) => {
   return (
     <div className="flex py-3 px-4 justify-end items-center gap-10 self-stretch rounded-xl border border-[#A594F9] bg-[#FAFAFA]">
       <div className="w-64 typo-body4-semibold text-black whitespace-pre-line">
-        {title.replace(/\(/g, '\n(')}
+        {title ? (
+          title.replace(/\(/g, '\n(')
+        ) : (
+          <span className="text-gray-400 animate-loading-pulse">제목을 생성하고 있습니다...</span>
+        )}
       </div>
       <div className="flex w-17 h-12 justify-end flex-col">
         <div
