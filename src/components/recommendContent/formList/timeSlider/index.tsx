@@ -1,22 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const steps = [0, 5, 10, 15, 20, 25, 30];
 
 interface TimeSliderProps {
+  value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
 }
 
-const TimeSlider = ({ defaultValue = 0, onChange }: TimeSliderProps) => {
-  const [value, setValue] = useState(defaultValue);
+const TimeSlider = ({ value: controlledValue, defaultValue = 0, onChange }: TimeSliderProps) => {
+  const [internalValue, setInternalValue] = useState(defaultValue);
   const [dragging, setDragging] = useState(false);
+
+  const value = controlledValue ?? internalValue;
+
+  useEffect(() => {
+    if (controlledValue !== undefined) {
+      setInternalValue(controlledValue);
+    }
+  }, [controlledValue]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = Number(e.target.value);
     const snapped = steps.reduce((prev, curr) =>
       Math.abs(curr - raw) < Math.abs(prev - raw) ? curr : prev,
     );
-    setValue(snapped);
+    setInternalValue(snapped);
     onChange?.(snapped);
   };
 
