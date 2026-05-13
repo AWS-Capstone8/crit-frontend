@@ -49,5 +49,13 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "msw"
+    ],
+    "approvedBuilds": {
+      "msw": true
+    }
   }
 }

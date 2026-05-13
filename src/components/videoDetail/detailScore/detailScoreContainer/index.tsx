@@ -31,6 +31,14 @@ const titleConfig: Record<
     barFill: '#5AC467',
     barTrack: '#DEF3E1',
   },
+  '도달률': {
+    Icon: ClickIcon,
+    bgColor: 'bg-[#DEF3E195]',
+    badgeBg: 'bg-[#DEF3E195]',
+    textColor: 'text-[#5AC467]',
+    barFill: '#5AC467',
+    barTrack: '#DEF3E1',
+  },
   '시청 지속 시간': {
     Icon: AlarmIcon,
     bgColor: 'bg-[#FFFCEF]',
@@ -98,17 +106,19 @@ const DetailScoreContainer = ({
           style={{ width: isLoading ? '0%' : `${score}%`, backgroundColor: config.barFill }}
         />
       </div>
-      <div className="flex w-full justify-start items-center">
-        <div
-          className={`flex px-3 py-1 justify-center items-center rounded-xl ${config.bgColor} ${config.textColor} typo-body6`}
-        >
-          {isLoading ? (
-            <span className="animate-loading-pulse">평균 대비 계산 중</span>
-          ) : (
-            `평균 대비 ${avgDiff >= 0 ? '+' : ''} ${avgDiff}%`
-          )}
+      {avgDiff != null && avgDiff !== 0 && avgDiff !== -100 && (
+        <div className="flex w-full justify-start items-center">
+          <div
+            className={`flex px-3 py-1 justify-center items-center rounded-xl ${config.bgColor} ${config.textColor} typo-body6`}
+          >
+            {isLoading ? (
+              <span className="animate-loading-pulse">평균 대비 계산 중</span>
+            ) : (
+              `평균 대비 ${avgDiff >= 0 ? '+' : ''}${avgDiff}%`
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <div className="flex w-full justify-start items-center text-black typo-body5">
         {isLoading ? (
           <span className="text-gray-400 animate-loading-pulse">

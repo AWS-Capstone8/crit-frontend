@@ -3,7 +3,7 @@ import useCurrentVideoStore from '@/stores/useCurrentVideoStore';
 
 // API name을 UI title로 매핑
 const nameToTitle: Record<string, string> = {
-  CTR: 'CTR (클릭률)',
+  '도달률': '도달률',
   '시청 지속 시간': '시청 지속 시간',
   '추천 확장성': '추천 확장성',
 };
@@ -19,7 +19,7 @@ const DetailScore = () => {
   if (showLoading || factors.length === 0) {
     return (
       <div className="flex w-full gap-7 justify-center items-stretch">
-        <DetailScoreContainer title="CTR (클릭률)" isLoading />
+        <DetailScoreContainer title="도달률" isLoading />
         <DetailScoreContainer title="시청 지속 시간" isLoading />
         <DetailScoreContainer title="추천 확장성" isLoading />
       </div>
