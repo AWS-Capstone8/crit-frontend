@@ -20,9 +20,6 @@ const ContentItem = ({ title, concept, onVideoRecommend, isLoading = false }: Co
             <div className="w-full justify-start items-center text-black typo-body5">{concept}</div>
           </div>
         </div>
-        <div className="px-4.5 py-1 justify-center items-center rounded-xl border-[0.5px] border-[#8257B4] shadow-[0_1px_4px_0_rgba(0,0,0,0.25)] text-[#4F378A] typo-body6 shrink-0 cursor-pointer hover:bg-[#F5EFFF] active:bg-[#E8DEFF] transition-colors">
-          아이디어
-        </div>
       </div>
       <div
         onClick={isLoading ? undefined : onVideoRecommend}
