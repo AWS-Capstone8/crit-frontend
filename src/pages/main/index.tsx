@@ -52,7 +52,7 @@ const Main = () => {
         <div className="flex flex-col items-center text-center">
           <div className="typo-title1">
             <span className="text-gray-500">트렌드를 읽고, 콘텐츠를 만들다 </span>
-            <span className="text-[#6B4EFF]">단 하나의 시작, CRiT</span>
+            <span className="animate-crit-glow">단 하나의 시작, CRiT</span>
           </div>
           <div className="text-gray-600 typo-body4 mt-2">
             지금 뜨는 키워드로 주제를 추천받으세요.

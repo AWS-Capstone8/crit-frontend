@@ -183,7 +183,9 @@ const ViewGrowthCard = () => {
                   {hasData &&
                     videoData.map((value, i) => {
                       const xPercent = (i / (videoData.length - 1)) * 100;
-                      const yPercent = getY(value);
+                      const videoYPercent = getY(value);
+                      const avgValue = avgData[i] ?? 0;
+                      const avgYPercent = getY(avgValue);
                       return (
                         <div
                           key={i}
@@ -197,25 +199,50 @@ const ViewGrowthCard = () => {
                         >
                           {hoverIndex === i && (
                             <>
+                              {/* 세로선 */}
+                              <div
+                                className="absolute w-px h-full bg-[#6B42FF] opacity-50"
+                                style={{ left: '50%', transform: 'translateX(-50%)' }}
+                              />
+                              {/* 이 영상 점 */}
                               <div
                                 className="absolute w-2 h-2 rounded-full bg-[#9F8CFF]"
                                 style={{
-                                  left: '4px',
-                                  top: `${yPercent}%`,
+                                  left: '50%',
+                                  top: `${videoYPercent}%`,
                                   transform: 'translate(-50%, -50%)',
                                 }}
                               />
+                              {/* 채널 평균 점 */}
                               <div
-                                className="absolute px-2 py-1 rounded-xl text-black typo-body5 whitespace-nowrap z-10 border border-[#6B42FF]"
+                                className="absolute w-2 h-2 rounded-full bg-[#8B8484]"
                                 style={{
                                   left: '50%',
-                                  top: `${yPercent}%`,
-                                  transform: 'translate(-50%, -130%)',
-                                  background: 'rgba(255, 255, 255, 0.85)',
+                                  top: `${avgYPercent}%`,
+                                  transform: 'translate(-50%, -50%)',
+                                }}
+                              />
+                              {/* 툴팁 */}
+                              <div
+                                className="absolute flex flex-col gap-1 px-3 py-2 rounded-xl text-black whitespace-nowrap z-10 border border-[#6B42FF]"
+                                style={{
+                                  left: '50%',
+                                  top: `${Math.min(videoYPercent, avgYPercent)}%`,
+                                  transform: 'translate(-50%, -120%)',
+                                  background: 'rgba(255, 255, 255, 0.9)',
                                   backdropFilter: 'blur(27px)',
                                 }}
                               >
-                                {formatValue(value)}
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 rounded-full bg-[#9F8CFF]" />
+                                  <span className="typo-body5">이 영상: {formatValue(value)}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 rounded-full bg-[#8B8484]" />
+                                  <span className="typo-body5">
+                                    채널 평균: {formatValue(avgValue)}
+                                  </span>
+                                </div>
                               </div>
                             </>
                           )}

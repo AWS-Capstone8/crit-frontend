@@ -6,9 +6,15 @@ interface TimeSliderProps {
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
+  compact?: boolean;
 }
 
-const TimeSlider = ({ value: controlledValue, defaultValue = 0, onChange }: TimeSliderProps) => {
+const TimeSlider = ({
+  value: controlledValue,
+  defaultValue = 0,
+  onChange,
+  compact = false,
+}: TimeSliderProps) => {
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [dragging, setDragging] = useState(false);
 
@@ -32,7 +38,7 @@ const TimeSlider = ({ value: controlledValue, defaultValue = 0, onChange }: Time
   const percent = (value / 30) * 100;
 
   return (
-    <div className="relative w-120 flex flex-col">
+    <div className={`relative flex flex-col ${compact ? 'w-full' : 'w-120'}`}>
       <div
         className={`absolute -top-8 px-3 py-1 rounded-md bg-[#A594F9]/80 text-white text-xs font-semibold transition-all duration-200 whitespace-nowrap ${dragging ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
         style={{ left: `calc(${percent}% - 16px)` }}

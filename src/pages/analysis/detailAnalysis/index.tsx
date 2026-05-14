@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ArrowLeftIcon from '@/assets/icons/score-icons/video-detail/arrow-left-icon.svg?react';
+// import CritLogo from '@/assets/icons/critLogo.svg?react';
 import VideoInfo from '@/components/videoDetail/videoInfo';
 import DetailScore from '@/components/videoDetail/detailScore';
 import AISummaryCard from '@/components/videoDetail/aiSummaryCard';
@@ -10,6 +11,7 @@ import RecommendActionCard from '@/components/videoDetail/recommendActionCard';
 import RecommendContent from '@/components/videoDetail/recommendContent';
 import useCurrentVideoStore from '@/stores/useCurrentVideoStore';
 import { getVideoAnalysis } from '@/api/command';
+// import SatisfactionCard from '@/components/videoDetail/satisfactionCard';
 
 interface DetailAnalysisProps {
   onBack: () => void;
@@ -19,6 +21,16 @@ const DetailAnalysis = ({ onBack }: DetailAnalysisProps) => {
   const videoId = useCurrentVideoStore(s => s.videoId);
   const setVideoAnalysis = useCurrentVideoStore(s => s.setVideoAnalysis);
   const setLoading = useCurrentVideoStore(s => s.setLoading);
+  // phase: 0 = 텍스트 보임, 1 = 둘 다 안보임, 2 = 로고 보임, 3 = 둘 다 안보임
+  const [phase, setPhase] = useState(0);
+
+  useEffect(() => {
+    const durations = [2500, 500, 2500, 500]; // 각 phase 지속 시간
+    const timeout = setTimeout(() => {
+      setPhase(prev => (prev + 1) % 4);
+    }, durations[phase]);
+    return () => clearTimeout(timeout);
+  }, [phase]);
 
   useEffect(() => {
     const fetchVideoAnalysis = async () => {
@@ -58,6 +70,15 @@ const DetailAnalysis = ({ onBack }: DetailAnalysisProps) => {
         <div className="flex flex-col w-[30%] justify-start items-center gap-5">
           <ImprovementPointCard />
           <RecommendActionCard />
+          {/* <div className="flex w-full h-10 justify-center items-center relative">
+            {phase === 0 && (
+              <span className="absolute typo-title1 text-[#6B4EFF] animate-fade-in-out">
+                단 하나의 시작, CRiT
+              </span>
+            )}
+            {phase === 2 && <CritLogo className="absolute h-8 animate-fade-in-out-logo" />}
+          </div> */}
+          {/* <SatisfactionCard /> */}
         </div>
       </div>
       <RecommendContent />

@@ -11,7 +11,7 @@ const SatisfactionCard = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1 w-full px-6 py-5 gap-4 justify-center items-center bg-white rounded-xl border-[0.1px] border-[#8257B4]">
+    <div className="flex flex-col flex-1 w-full px-6 py-4 gap-2 justify-center items-center bg-white rounded-xl border-[0.1px] border-[#8257B4]">
       <div className="text-[#6452CE] typo-body4-semibold">분석 결과가 만족스러우신가요?</div>
       {isSubmitted ? (
         <div className="flex flex-col items-center gap-2 animate-fade-in">
@@ -40,7 +40,7 @@ const SatisfactionCard = () => {
           <button
             onClick={handleSubmitRating}
             disabled={rating === 0}
-            className={`px-6 py-2 rounded-lg typo-body5 transition-all duration-200 ${
+            className={`px-6 py-1 rounded-lg typo-body5 transition-all duration-200 ${
               rating > 0
                 ? 'bg-[#D9D2FF] text-white hover:bg-[#6B42FF] active:bg-[#C4B8FF] cursor-pointer'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'

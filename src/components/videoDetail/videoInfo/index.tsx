@@ -163,7 +163,7 @@ const VideoInfo = () => {
                   `상위 ${videoInfo.score.topPercent}% 영상입니다.`
                 )}
               </div>
-              <div className="w-full jsutify-start items-center text-black typo-body4-semibold">
+              <div className="w-full jsutify-start items-center text-black typo-body5">
                 {showLoading ? (
                   <span className="text-gray-400 animate-loading-pulse">
                     분석 결과를 불러오는 중입니다...

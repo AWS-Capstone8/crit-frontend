@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import LogoutIcon from '@/assets/icons/logout-icon.svg?react';
 import PersonIcon from '@/assets/icons/person-icon.svg?react';
 import CritLogo from '@/assets/icons/critLogo.svg?react';
 import useUserStore from '@/stores/useUserStore';
+import UserInfoModal from '@/pages/userInfoModal';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ const Header = () => {
   const currentPath = location.pathname;
   const channelName = useUserStore(s => s.channelName);
   const clearUser = useUserStore(s => s.clearUser);
+  const [showModal, setShowModal] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -47,8 +50,9 @@ const Header = () => {
       </div>
       <div className="flex h-11 items-center justify-end gap-5">
         <LogoutIcon className="w-6 h-6 cursor-pointer" onClick={handleLogout} />
-        <PersonIcon className="w-6 h-6" />
+        <PersonIcon className="w-6 h-6 cursor-pointer" onClick={() => setShowModal(true)} />
       </div>
+      {showModal && <UserInfoModal onClose={() => setShowModal(false)} />}
     </div>
   );
 };

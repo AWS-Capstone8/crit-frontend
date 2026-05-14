@@ -4,6 +4,7 @@ import useCurrentVideoStore from '@/stores/useCurrentVideoStore';
 
 const ViewingTimeCard = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [showAllTooltips, setShowAllTooltips] = useState(false);
   const videoAnalysis = useCurrentVideoStore(s => s.videoAnalysis);
   const isLoading = useCurrentVideoStore(s => s.isLoading);
 
@@ -66,7 +67,7 @@ const ViewingTimeCard = () => {
   };
 
   return (
-    <div className="flex w-full h-full px-6 py-8 justify-center items-start gap-3.5 bg-white rounded-xl border-[0.1px] border-[#8257B4]">
+    <div className="flex w-full h-full px-6 py-8 justify-center items-center gap-3.5 bg-white rounded-xl border-[0.1px] border-[#8257B4]">
       {/* 시청자 유지율 분석 영역 */}
       <div className="flex flex-col w-full h-full flex-1 justify-between items-center">
         <div className="flex w-full justify-start items-center gap-1 text-[#6452CE] typo-body4-semibold">
@@ -142,6 +143,7 @@ const ViewingTimeCard = () => {
                     const xPercent = (i / segmentCount) * 100;
                     const yPercent = getY(percent);
                     const section = sections[i];
+                    const isVisible = hoverIndex === i || showAllTooltips;
                     return (
                       <div
                         key={i}
@@ -153,7 +155,7 @@ const ViewingTimeCard = () => {
                         onMouseEnter={() => setHoverIndex(i)}
                         onMouseLeave={() => setHoverIndex(null)}
                       >
-                        {hoverIndex === i && (
+                        {isVisible && (
                           <>
                             <div
                               className="absolute w-2 h-2 rounded-full bg-[#9F8CFF]"
@@ -204,7 +206,7 @@ const ViewingTimeCard = () => {
         </div>
       </div>
       {/* 주요 이탈 구간 */}
-      <div className="flex flex-col w-52 shrink-0 justify-center items-start px-4.5 py-7 gap-4.5 bg-[#F5EFFF33] rounded-xl border-[0.1px] border-[#8257B4]">
+      <div className="flex flex-col w-52 shrink-0 justify-center items-center px-4.5 py-7 gap-4.5 bg-[#F5EFFF33] rounded-xl border-[0.1px] border-[#8257B4]">
         <div className="w-full justify-start items-center text-black typo-body4-semibold">
           주요 이탈 구간
         </div>
@@ -228,8 +230,11 @@ const ViewingTimeCard = () => {
             <div className="w-full justify-start items-center text-black typo-body5">
               {mainDropOff?.description ?? '이탈 구간 설명 데이터 없음'}
             </div>
-            <div className="px-7 py-1 justify-center items-center text-[#8257B4] typo-body6 rounded-lg border border-[#8257B480] cursor-pointer hover:bg-[#8257B410]">
-              구간 자세히 보기
+            <div
+              className="px-7 py-1 justify-center items-center text-[#8257B4] typo-body6 rounded-lg border border-[#8257B480] cursor-pointer hover:bg-[#8257B410]"
+              onClick={() => setShowAllTooltips(prev => !prev)}
+            >
+              {showAllTooltips ? '구간 접기' : '구간 자세히 보기'}
             </div>
           </>
         )}
