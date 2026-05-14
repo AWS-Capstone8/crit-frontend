@@ -26,7 +26,9 @@ const CardItem = ({ iconType, title, comment }: CardItemProps) => {
         <div className="w-full justify-start items-center text-black typo-body4-semibold">
           {title}
         </div>
-        <div className="w-full justify-start items-center text-black typo-body5">{comment}</div>
+        <div className="w-full justify-start items-center text-black typo-body4-semibold">
+          {comment}
+        </div>
       </div>
     </div>
   );

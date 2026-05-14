@@ -1,6 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import LogoutIcon from '@/assets/icons/logout-icon.svg?react';
-import SettingIcon from '@/assets/icons/setting-icon.svg?react';
 import PersonIcon from '@/assets/icons/person-icon.svg?react';
 import CritLogo from '@/assets/icons/critLogo.svg?react';
 import useUserStore from '@/stores/useUserStore';
@@ -49,7 +48,6 @@ const Header = () => {
       <div className="flex h-11 items-center justify-end gap-5">
         <LogoutIcon className="w-6 h-6 cursor-pointer" onClick={handleLogout} />
         <PersonIcon className="w-6 h-6" />
-        <SettingIcon className="w-6 h-6" />
       </div>
     </div>
   );

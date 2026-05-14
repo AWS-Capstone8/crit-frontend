@@ -17,7 +17,7 @@ const AISummaryCard = () => {
           <div className="w-full justify-start items-center text-[#6452CE] typo-body4-semibold">
             AI 한 줄 분석
           </div>
-          <div className="w-full justify-start items-start text-black typo-body5">
+          <div className="w-full justify-start items-start text-black typo-body4-semibold">
             {showLoading ? (
               <span className="text-gray-400 animate-loading-pulse">
                 AI가 영상을 분석하고 있습니다...

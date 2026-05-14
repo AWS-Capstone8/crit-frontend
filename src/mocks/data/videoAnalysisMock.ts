@@ -17,7 +17,7 @@ export const mockVideoAnalysisResponse = {
   },
   factors: [
     {
-      name: 'CTR',
+      name: 'CTR (클릭률)',
       score: 76,
       topPercent: 24,
       changePercent: 52.5,

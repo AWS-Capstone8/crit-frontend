@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import SparkIcon from '@/assets/icons/score-icons/video-detail/sparkle-icon.svg?react';
 import useCurrentVideoStore from '@/stores/useCurrentVideoStore';
 
 const ViewingTimeCard = () => {
@@ -67,8 +68,9 @@ const ViewingTimeCard = () => {
   return (
     <div className="flex w-full h-full px-6 py-8 justify-center items-start gap-3.5 bg-white rounded-xl border-[0.1px] border-[#8257B4]">
       {/* 시청자 유지율 분석 영역 */}
-      <div className="flex flex-col flex-1 justify-center items-center gap-5">
-        <div className="flex w-full justify-start items-center text-black typo-body4-semibold">
+      <div className="flex flex-col w-full h-full flex-1 justify-between items-center">
+        <div className="flex w-full justify-start items-center gap-1 text-[#6452CE] typo-body4-semibold">
+          <SparkIcon className="w-4 h-4" />
           시청자 유지율 분석
         </div>
         {/* 그래프 영역 */}

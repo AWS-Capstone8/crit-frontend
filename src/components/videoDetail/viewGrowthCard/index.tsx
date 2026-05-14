@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ReasonContainer from './reasonContainer';
+import SparkIcon from '@/assets/icons/score-icons/video-detail/sparkle-icon.svg?react';
 import useCurrentVideoStore from '@/stores/useCurrentVideoStore';
 
 const ViewGrowthCard = () => {
@@ -66,11 +67,12 @@ const ViewGrowthCard = () => {
 
   return (
     <div className="flex w-full px-6 py-6 justify-center items-start gap-4 bg-white rounded-xl border-[0.1px] border-[#8257B4]">
-      <div className="flex flex-col w-full justify-center items-center gap-4">
-        <div className="flex w-full justify-start items-center text-[#6452CE] typo-body4-semibold">
+      <div className="flex flex-col w-full h-full justify-center items-center gap-4">
+        <div className="flex w-full justify-start items-center gap-1 text-[#6452CE] typo-body4-semibold">
+          <SparkIcon className="w-4 h-4" />
           점수 산정 근거
         </div>
-        <div className="flex flex-col w-full justify-center items-center gap-2.5">
+        <div className="flex flex-col w-full h-full justify-between py-5 items-center gap-2.5">
           {showLoading || !scoreBasis ? (
             <>
               <ReasonContainer isLoading />
@@ -84,7 +86,7 @@ const ViewGrowthCard = () => {
           )}
         </div>
       </div>
-      <div className="w-0.25 h-40 bg-[#8257B433]" />
+      <div className="w-0.25 h-full bg-[#8257B433]" />
       <div className="flex flex-col w-full justify-center items-center gap-6">
         <div className="flex w-full justify-start items-center gap-1">
           <div className="text-black typo-body4-semibold">조회수 성장 추이</div>
