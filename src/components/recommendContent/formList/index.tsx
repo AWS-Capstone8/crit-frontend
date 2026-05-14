@@ -8,20 +8,20 @@ import useUserStore from '@/stores/useUserStore';
 import { useShallow } from 'zustand/react/shallow';
 
 const categories = [
-  '영화/애니메이션',
+  '영화 / 애니메이션',
   '자동차',
   '음악',
   '동물',
   '스포츠',
-  '여행/이벤트',
+  '여행 / 이벤트',
   '게임',
-  '인물/블로그',
+  '인물 / 블로그',
   '코미디',
   '엔터테인먼트',
-  '뉴스/정치',
-  '노하우/스타일',
+  '뉴스 / 정치',
+  '노하우 / 스타일',
   '교육',
-  '과학/기술',
+  '과학 / 기술',
 ];
 
 interface FormListProps {

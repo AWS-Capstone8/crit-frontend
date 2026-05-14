@@ -21,11 +21,11 @@ const UserInfoModal = ({ onClose }: UserInfoModalProps) => {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="flex flex-col w-212 px-15 py-12 justify-center items-center gap-7.5 bg-white rounded-xl"
+        className="flex flex-col w-212 px-15 py-12 justify-center items-center gap-7.5 bg-white rounded-xl animate-modal-in"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex w-full justify-between items-center">
