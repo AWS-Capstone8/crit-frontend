@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CheckIcon from '@/assets/icons/check-icon.svg?react';
 
 interface CheckBoxProps {
@@ -10,6 +10,12 @@ interface CheckBoxProps {
 const CheckBox = ({ label, checked: controlledChecked, onChange }: CheckBoxProps) => {
   const [internalChecked, setInternalChecked] = useState(false);
   const isChecked = controlledChecked ?? internalChecked;
+
+  useEffect(() => {
+    if (controlledChecked !== undefined) {
+      setInternalChecked(controlledChecked);
+    }
+  }, [controlledChecked]);
 
   const handleClick = () => {
     const next = !isChecked;

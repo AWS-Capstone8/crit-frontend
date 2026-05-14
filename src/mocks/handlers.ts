@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { mockRecommendResponse, mockScriptResponse } from '@/mocks/data/recommendMock';
 import { mockChannelAnalysisResponse } from '@/mocks/data/analysisMock';
 import { mockVideoAnalysisResponse } from '@/mocks/data/videoAnalysisMock';
+import { mockKeywordsResponse } from '@/mocks/data/keywordsMock';
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
@@ -24,5 +25,10 @@ export const handlers = [
   // GET /analyze/video/:videoId - 영상 상세 분석 요청
   http.get(`${SERVER_URL}/analyze/video/:videoId`, () => {
     return HttpResponse.json(mockVideoAnalysisResponse, { status: 200 });
+  }),
+
+  // GET /keywords - 트렌드 키워드 요청
+  http.get(`${SERVER_URL}/keywords`, () => {
+    return HttpResponse.json(mockKeywordsResponse, { status: 200 });
   }),
 ];

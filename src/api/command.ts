@@ -118,3 +118,9 @@ export const getVideoAnalysis = async (videoId: string): Promise<VideoAnalysisRe
   const response = await api.get(`/analyze/video/${videoId}`);
   return response.data;
 };
+
+// GET /keywords - 트렌드 키워드 요청
+export const getKeywords = async (): Promise<{ text: string; value: number }[]> => {
+  const response = await api.get('/keywords');
+  return response.data;
+};

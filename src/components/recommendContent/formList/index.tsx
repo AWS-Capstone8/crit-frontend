@@ -4,6 +4,7 @@ import CheckBox from '@/components/recommendContent/formList/checkBox';
 import TimeSlider from '@/components/recommendContent/formList/timeSlider';
 import { postRecommend } from '@/api/command';
 import useRecommendStore from '@/stores/useRecommendStore';
+import useUserStore from '@/stores/useUserStore';
 import { useShallow } from 'zustand/react/shallow';
 
 const categories = [
@@ -32,7 +33,7 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const [searched, setSearched] = useState(false);
   const [keyword, setKeyword] = useState(initialKeyword);
-  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const channelURL = useUserStore(s => s.channelURL);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [time, setTime] = useState(0);
   const [errorMsg, setErrorMsg] = useState('');
@@ -57,10 +58,16 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
     );
   };
 
+  const handleReset = () => {
+    setKeyword('');
+    setSelectedCategories([]);
+    setTime(0);
+  };
+
   const handleSearch = async () => {
     const missing: string[] = [];
     if (!keyword.trim()) missing.push('Keyword');
-    if (!youtubeUrl.trim()) missing.push('YouTube URL');
+    if (!channelURL) missing.push('YouTube URL');
     if (selectedCategories.length === 0) missing.push('Category');
     if (time === 0) missing.push('Time');
 
@@ -75,13 +82,13 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
 
     try {
       const res = await postRecommend({
-        requestURL: youtubeUrl,
+        requestURL: channelURL || '',
         keywords: keyword,
         category: `{${selectedCategories.join(', ')}}`,
       });
       setRecommendations(res);
       setFormInput({
-        requestURL: youtubeUrl,
+        requestURL: channelURL || '',
         keywords: keyword,
         category: `{${selectedCategories.join(', ')}}`,
         time,
@@ -116,9 +123,10 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
               />
               <FormContainer
                 title="YouTube URL"
-                placeholder="예) https://youtube.com/@channel"
-                value={youtubeUrl}
-                onChange={setYoutubeUrl}
+                placeholder={channelURL ? '' : '로그인이 필요합니다.'}
+                value={channelURL || ''}
+                onChange={() => {}}
+                disabled
               />
             </div>
             <div className="flex w-196 flex-col items-start gap-4">
@@ -128,6 +136,7 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
                   <CheckBox
                     key={category}
                     label={category}
+                    checked={selectedCategories.includes(category)}
                     onChange={checked => handleCategoryToggle(category, checked)}
                   />
                 ))}
@@ -135,7 +144,15 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
             </div>
             <div className="flex w-196 flex-col items-start gap-4">
               <div className="typo-body1-medium text-[#0A0A0A]">Time</div>
-              <TimeSlider onChange={setTime} />
+              <div className="flex w-full items-center justify-between">
+                <TimeSlider value={time} onChange={setTime} />
+                <div
+                  onClick={handleReset}
+                  className="flex py-1.5 px-3 justify-center items-center rounded-md bg-[#FF6B6B] hover:bg-[#FF4757] active:bg-[#FF8787] typo-label text-white cursor-pointer transition-colors"
+                >
+                  초기화
+                </div>
+              </div>
             </div>
           </div>
         </div>
