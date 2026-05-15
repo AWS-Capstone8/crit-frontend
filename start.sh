@@ -2,7 +2,8 @@
 # crit-frontend 시작 스크립트
 # 현재 EC2 IP를 감지하여 .env 업데이트 후 프론트 실행
 
-IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+IP=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
 echo "현재 EC2 IP: $IP"
 
 # .env 업데이트
