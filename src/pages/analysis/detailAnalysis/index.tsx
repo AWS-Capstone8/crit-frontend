@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import ArrowLeftIcon from '@/assets/icons/score-icons/video-detail/arrow-left-icon.svg?react';
-// import CritLogo from '@/assets/icons/critLogo.svg?react';
 import VideoInfo from '@/components/videoDetail/videoInfo';
 import DetailScore from '@/components/videoDetail/detailScore';
 import AISummaryCard from '@/components/videoDetail/aiSummaryCard';
@@ -11,7 +10,7 @@ import RecommendActionCard from '@/components/videoDetail/recommendActionCard';
 import RecommendContent from '@/components/videoDetail/recommendContent';
 import useCurrentVideoStore from '@/stores/useCurrentVideoStore';
 import { getVideoAnalysis } from '@/api/command';
-// import SatisfactionCard from '@/components/videoDetail/satisfactionCard';
+import SatisfactionCard from '@/components/videoDetail/satisfactionCard';
 
 interface DetailAnalysisProps {
   onBack: () => void;
@@ -49,7 +48,7 @@ const DetailAnalysis = ({ onBack }: DetailAnalysisProps) => {
   }, [videoId, setVideoAnalysis, setLoading]);
 
   return (
-    <div className="flex flex-col w-full items-center gap-6 p-10 bg-[#F5EFFF] animate-slide-in-right">
+    <div className="flex flex-col w-300 items-center gap-6 px-10 py-10  animate-slide-in-right">
       <div
         className="flex w-full justify-start items-center gap-2 cursor-pointer hover:opacity-70"
         onClick={onBack}
@@ -67,18 +66,10 @@ const DetailAnalysis = ({ onBack }: DetailAnalysisProps) => {
           <ViewGrowthCard />
           <ViewingTimeCard />
         </div>
-        <div className="flex flex-col w-[30%] justify-start items-center gap-5">
+        <div className="flex flex-col w-[40%] justify-start items-center gap-5">
           <ImprovementPointCard />
           <RecommendActionCard />
-          {/* <div className="flex w-full h-10 justify-center items-center relative">
-            {phase === 0 && (
-              <span className="absolute typo-title1 text-[#6B4EFF] animate-fade-in-out">
-                단 하나의 시작, CRiT
-              </span>
-            )}
-            {phase === 2 && <CritLogo className="absolute h-8 animate-fade-in-out-logo" />}
-          </div> */}
-          {/* <SatisfactionCard /> */}
+          <SatisfactionCard />
         </div>
       </div>
       <RecommendContent />
