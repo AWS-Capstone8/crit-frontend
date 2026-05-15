@@ -10,7 +10,7 @@ import RecommendActionCard from '@/components/videoDetail/recommendActionCard';
 import RecommendContent from '@/components/videoDetail/recommendContent';
 import useCurrentVideoStore from '@/stores/useCurrentVideoStore';
 import { getVideoAnalysis } from '@/api/command';
-import SatisfactionCard from '@/components/videoDetail/satisfactionCard';
+// import SatisfactionCard from '@/components/videoDetail/satisfactionCard';
 
 interface DetailAnalysisProps {
   onBack: () => void;
@@ -69,7 +69,7 @@ const DetailAnalysis = ({ onBack }: DetailAnalysisProps) => {
         <div className="flex flex-col w-[40%] justify-start items-center gap-5">
           <ImprovementPointCard />
           <RecommendActionCard />
-          <SatisfactionCard />
+          {/* <SatisfactionCard /> */}
         </div>
       </div>
       <RecommendContent />

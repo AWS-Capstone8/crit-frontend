@@ -20,7 +20,6 @@ const FormSubject = ({ onSelect }: FormSubjectProps) => {
       autoSelectSubject: s.autoSelectSubject,
     })),
   );
-  const setSelectedSubjectIndex = useRecommendStore(s => s.setSelectedSubjectIndex);
   const setAutoSelectSubject = useRecommendStore(s => s.setAutoSelectSubject);
   const setData = useAIFormStore(s => s.setData);
 
