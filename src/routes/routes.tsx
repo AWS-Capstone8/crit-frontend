@@ -6,11 +6,13 @@ import AnalysisPage from '@/pages/analysis';
 import LoginPage from '@/pages/login';
 import MainPage from '@/pages/main';
 import PrivateRoute from '@/routes/privateRoute';
+import ScrollToTop from '@/routes/ScrollToTop';
 
 const Router = () => {
   return (
     <Suspense>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/oauth-callback" element={<LoginPage />} />

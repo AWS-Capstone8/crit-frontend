@@ -81,7 +81,14 @@ const VideoInfo = () => {
                 영상 제목을 불러오는 중...
               </span>
             ) : (
-              videoInfo.title
+              <a
+                href={videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#6B4EFF] transition-colors"
+              >
+                {videoInfo.title}
+              </a>
             )}
           </div>
           <ShareIcon

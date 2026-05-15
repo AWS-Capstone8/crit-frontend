@@ -19,11 +19,8 @@ const VideoChannel = ({ onVideoClick }: VideoChannelProps) => {
   return (
     <div className="flex flex-col w-full justify-center items-center">
       <div className="flex w-full justify-start">
-        <div className="flex px-16 py-3 justify-center typo-body1-medium rounded-t-xl border border-[#F5EFFF] bg-[#F5EFFF]">
+        <div className="flex px-16 py-3 justify-center typo-body1-medium rounded-t-xl border border-[#e4d3ff] bg-[#e4d3ff] border-b-2 border-b-white">
           내 영상
-        </div>
-        <div className="flex px-16 py-3 justify-center typo-body1-medium rounded-t-xl border border-[#F5EFFF]">
-          비교
         </div>
       </div>
       <div className="flex w-full h-266 px-6 py-11 justify-center items-center rounded-tr-xl rounded-b-xl bg-[#F5EFFF]">

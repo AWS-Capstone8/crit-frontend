@@ -9,13 +9,13 @@ const AlgorithmScore = () => {
   const factors = score?.factors ?? [];
 
   return (
-    <div className="flex w-full px-2 py-4 flex-col justify-center items-center gap-2 rounded-xl border border-[#A594F9] self-stretch">
+    <div className="flex w-full px-2 py-6 flex-col justify-start items-center gap-2 rounded-xl border border-[#A594F9] self-stretch">
       <div className="flex w-full h-7 px-3 typo-body1-medium text-black">알고리즘 점수</div>
-      <div className="flex items-center gap-2 self-stretch">
+      <div className="flex w-full h-full items-center gap-4 self-stretch">
         <div className="flex items-center justify-center p-3">
           <CircleProgress score={score?.overall ?? 0} rank={`상위 ${score?.topPercent ?? 0}%`} />
         </div>
-        <div className="flex flex-col w-full justify-between items-start self-stretch">
+        <div className="flex flex-col w-full h-full justify-between items-start self-stretch">
           <div className="typo-body-bold leading-[140%] tracking-tight text-black">
             점수 구성 요인
           </div>

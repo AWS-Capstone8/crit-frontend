@@ -25,20 +25,12 @@ const DetailScore = () => {
       </div>
     );
   }
-
+  
   return (
     <div className="flex w-full gap-7 justify-center items-stretch">
-      {factors.map((factor, index) => (
-        <DetailScoreContainer
-          key={index}
-          title={nameToTitle[factor.name] || factor.name}
-          score={factor.score}
-          topPercent={factor.topPercent}
-          avgDiff={factor.changePercent}
-          content={factor.description}
-          isLoading={false}
-        />
-      ))}
+      <DetailScoreContainer factorName="CTR (클릭률)" />
+      <DetailScoreContainer factorName="시청 지속 시간" />
+      <DetailScoreContainer factorName="추천 확장성" />
     </div>
   );
 };

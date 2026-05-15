@@ -4,16 +4,33 @@ import Footer from '@/components/footer';
 import Keywords from '@/components/keywordsContent/keywords';
 import KeywordCard from '@/components/keywordsContent/keywordCard';
 import useKeywordStore from '@/stores/useKeywordStore';
+import useTrendKeywordsStore from '@/stores/useTrendKeywordsStore';
+import { getKeywords } from '@/api/command';
 
 const Main = () => {
   const selectedKeyword = useKeywordStore(s => s.selectedKeyword);
   const setSelectedKeyword = useKeywordStore(s => s.setSelectedKeyword);
+  const setKeywords = useTrendKeywordsStore(s => s.setKeywords);
+  const setLoading = useTrendKeywordsStore(s => s.setLoading);
   const [animationKey, setAnimationKey] = useState(0);
 
-  // 페이지 진입 시 선택된 키워드 초기화
+  // 페이지 진입 시 선택된 키워드 초기화 + 트렌드 키워드 API 호출
   useEffect(() => {
     setSelectedKeyword(null);
-  }, [setSelectedKeyword]);
+
+    const fetchKeywords = async () => {
+      setLoading(true);
+      try {
+        const res = await getKeywords();
+        setKeywords(res);
+      } catch (err) {
+        console.error('트렌드 키워드 요청 실패:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchKeywords();
+  }, [setSelectedKeyword, setKeywords, setLoading]);
 
   // 키워드가 바뀔 때마다 애니메이션 키 증가 (재실행용)
   useEffect(() => {
@@ -32,11 +49,10 @@ const Main = () => {
 
       <Header />
       <div className="flex-1 flex flex-col w-full p-10 justify-center items-center relative z-10 gap-4 px-8">
-        {/* 슬로건 */}
         <div className="flex flex-col items-center text-center">
           <div className="typo-title1">
             <span className="text-gray-500">트렌드를 읽고, 콘텐츠를 만들다 </span>
-            <span className="text-[#6B4EFF]">단 하나의 시작, CRiT</span>
+            <span className="animate-crit-glow">단 하나의 시작, CRiT</span>
           </div>
           <div className="text-gray-600 typo-body4 mt-2">
             지금 뜨는 키워드로 주제를 추천받으세요.
