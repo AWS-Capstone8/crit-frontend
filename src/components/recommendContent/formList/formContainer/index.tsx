@@ -3,9 +3,16 @@ interface FormContainerProps {
   placeholder?: string;
   value?: string;
   onChange?: (value: string) => void;
+  disabled?: boolean;
 }
 
-const FormContainer = ({ title, placeholder, value, onChange }: FormContainerProps) => {
+const FormContainer = ({
+  title,
+  placeholder,
+  value,
+  onChange,
+  disabled = false,
+}: FormContainerProps) => {
   return (
     <div className="flex w-95 h-21 flex-col items-start gap-2 shrink-0">
       <div className="flex h-7 items-center gap-2 shrink-0 self-stretch">
@@ -16,7 +23,8 @@ const FormContainer = ({ title, placeholder, value, onChange }: FormContainerPro
         placeholder={placeholder}
         value={value}
         onChange={e => onChange?.(e.target.value)}
-        className="flex h-12 py-1 px-3 items-center shrink-0 self-stretch rounded-lg border border-transparent bg-[#FEF8FF] typo-body2 text-[#0A0A0A] placeholder:typo-body2 placeholder:text-[#0a0a0a89] outline-none"
+        disabled={disabled}
+        className={`flex h-12 py-1 px-3 items-center shrink-0 self-stretch rounded-lg border border-transparent bg-[#FEF8FF] typo-body2 text-[#0A0A0A] placeholder:typo-body2 placeholder:text-[#0a0a0a89] outline-none ${disabled ? 'cursor-not-allowed opacity-70' : ''}`}
       />
     </div>
   );

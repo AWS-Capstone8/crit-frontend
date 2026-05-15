@@ -27,6 +27,7 @@ export interface VideoAnalysisResponse {
     viewCount: number;
     uploadDate: string;
     category: string;
+    keyword: string;
     durationSeconds: number;
     score: {
       overall: number;
@@ -116,5 +117,11 @@ export const getChannelAnalysis = async (channel: string) => {
 // GET /analyze/video/{videoId} - 영상 상세 분석 요청
 export const getVideoAnalysis = async (videoId: string): Promise<VideoAnalysisResponse> => {
   const response = await api.get(`/analyze/video/${videoId}`);
+  return response.data;
+};
+
+// GET /keywords - 트렌드 키워드 요청
+export const getKeywords = async (): Promise<{ text: string; value: number }[]> => {
+  const response = await api.get('/keywords');
   return response.data;
 };
