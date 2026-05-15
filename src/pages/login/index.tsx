@@ -13,7 +13,7 @@ const LoginPage = () => {
 
     const token = params.get('token');
     const channelName = params.get('channelName');
-    const channelURL = params.get('channelURL');
+    const channelURL = params.get('channelUrl');
 
     if (token) {
       localStorage.setItem('token', token);

@@ -15,6 +15,7 @@ const Router = () => {
         <ScrollToTop />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/oauth-callback" element={<LoginPage />} />
           <Route path="/" element={<PrivateRoute />}>
             <Route index element={<MainPage />} />
             <Route path="recommend" element={<RecommendPage />} />

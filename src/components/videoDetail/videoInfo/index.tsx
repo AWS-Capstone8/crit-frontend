@@ -24,8 +24,9 @@ const VideoInfo = () => {
     return count.toLocaleString();
   };
 
-  // 업로드 날짜 포맷팅 (2024-03-15 -> "2024.03.15")
-  const formatUploadDate = (date: string) => {
+  // 업로드 날짜 포맷팅 (2024.03.15 -> 그대로, null -> "-")
+  const formatUploadDate = (date: string | null) => {
+    if (!date) return '-';
     return date.replace(/-/g, '.');
   };
 
@@ -91,7 +92,7 @@ const VideoInfo = () => {
             )}
           </div>
           <ShareIcon
-            onClick={handleShare}
+            onClick={() => window.open(videoUrl, '_blank')}
             className={`w-5 h-5 cursor-pointer shrink-0 ${shared ? 'text-[#6B4EFF]' : 'text-[#0000004D] active:text-[#6B4EFF]'}`}
           />
         </div>
