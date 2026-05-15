@@ -50,11 +50,11 @@ const DetailAnalysis = ({ onBack }: DetailAnalysisProps) => {
   return (
     <div className="flex flex-col w-300 items-center gap-6 px-10 py-10  animate-slide-in-right">
       <div
-        className="flex w-full justify-start items-center gap-2 cursor-pointer hover:opacity-70"
+        className="flex w-full justify-start items-center gap-2 cursor-pointer text-black/50 hover:text-[#6B4EFF] transition-colors"
         onClick={onBack}
       >
         <ArrowLeftIcon className="w-5 h-5" />
-        <div className="text-black typo-body3">분석 목록으로 돌아가기</div>
+        <div className="typo-body3">분석 목록으로 돌아가기</div>
       </div>
       <div className="flex flex-col w-full justify-center items-center gap-4">
         <VideoInfo />
