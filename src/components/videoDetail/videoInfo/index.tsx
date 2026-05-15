@@ -24,9 +24,8 @@ const VideoInfo = () => {
     return count.toLocaleString();
   };
 
-  // 업로드 날짜 포맷팅 (2024.03.15 -> 그대로, null -> "-")
-  const formatUploadDate = (date: string | null) => {
-    if (!date) return '-';
+  // 업로드 날짜 포맷팅 (2024-03-15 -> "2024.03.15")
+  const formatUploadDate = (date: string) => {
     return date.replace(/-/g, '.');
   };
 
@@ -81,18 +80,11 @@ const VideoInfo = () => {
                 영상 제목을 불러오는 중...
               </span>
             ) : (
-              <a
-                href={videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#6B4EFF] transition-colors"
-              >
-                {videoInfo.title}
-              </a>
+              videoInfo.title
             )}
           </div>
           <ShareIcon
-            onClick={() => window.open(videoUrl, '_blank')}
+            onClick={handleShare}
             className={`w-5 h-5 cursor-pointer shrink-0 ${shared ? 'text-[#6B4EFF]' : 'text-[#0000004D] active:text-[#6B4EFF]'}`}
           />
         </div>
@@ -171,7 +163,7 @@ const VideoInfo = () => {
                   `상위 ${videoInfo.score.topPercent}% 영상입니다.`
                 )}
               </div>
-              <div className="w-full jsutify-start items-center text-black typo-body5">
+              <div className="w-full jsutify-start items-center text-black typo-body4-semibold">
                 {showLoading ? (
                   <span className="text-gray-400 animate-loading-pulse">
                     분석 결과를 불러오는 중입니다...

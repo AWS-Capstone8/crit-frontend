@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import cloud from 'd3-cloud';
 import useKeywordStore from '@/stores/useKeywordStore';
@@ -11,14 +11,27 @@ interface KeywordsProps {
 
 const Keywords = ({ isShifted = false }: KeywordsProps) => {
   const svgRef = useRef<SVGSVGElement>(null);
-  const initializedRef = useRef(false);
   const setSelectedKeyword = useKeywordStore(s => s.setSelectedKeyword);
   const keywords = useTrendKeywordsStore(s => s.keywords);
   const isLoading = useTrendKeywordsStore(s => s.isLoading);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+
+  // 30초마다 리프레시
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setRefreshKey(prev => prev + 1);
+        setIsFading(false);
+      }, 500);
+    }, 30000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
-    if (!svgRef.current || initializedRef.current || keywords.length === 0) return;
-    initializedRef.current = true;
+    if (!svgRef.current || keywords.length === 0) return;
 
     const width = 800;
     const height = 600;
@@ -92,12 +105,7 @@ const Keywords = ({ isShifted = false }: KeywordsProps) => {
       });
 
     layout.start();
-  }, [keywords, setSelectedKeyword]);
-
-  // 키워드 변경 시 다시 그리기 위해 초기화
-  useEffect(() => {
-    initializedRef.current = false;
-  }, [keywords]);
+  }, [keywords, setSelectedKeyword, refreshKey]);
 
   if (isLoading) {
     return (
@@ -119,7 +127,7 @@ const Keywords = ({ isShifted = false }: KeywordsProps) => {
 
   return (
     <div
-      className={`flex items-center justify-center transition-all duration-500 ease-in-out ${isShifted ? '-translate-x-20' : 'translate-x-0'}`}
+      className={`flex items-center justify-center transition-all duration-500 ease-in-out ${isShifted ? '-translate-x-20' : 'translate-x-0'} ${isFading ? 'opacity-0' : 'opacity-100'}`}
     >
       <svg ref={svgRef} />
     </div>
