@@ -8,6 +8,7 @@ export const mockVideoAnalysisResponse = {
     viewCount: 185000,
     uploadDate: '2024-03-15',
     category: '과학/기술',
+    keyword: '구글, 신제품, IT, 테크',
     durationSeconds: 743,
     score: {
       overall: 82,
@@ -17,7 +18,7 @@ export const mockVideoAnalysisResponse = {
   },
   factors: [
     {
-      name: 'CTR',
+      name: 'CTR (클릭률)',
       score: 76,
       topPercent: 24,
       changePercent: 52.5,

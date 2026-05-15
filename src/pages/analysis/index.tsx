@@ -47,12 +47,12 @@ const AnalysisPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col justify-center items-center">
       <Header />
       {!showDetail ? (
         <div
           key="list"
-          className={`flex flex-col items-center pt-10 px-10 overflow-hidden ${slideDirection === 'left' ? 'animate-slide-in-left' : ''}`}
+          className={`flex flex-col w-300 items-center pt-10 px-10 overflow-hidden ${slideDirection === 'left' ? 'animate-slide-in-left' : ''}`}
         >
           <div className="flex flex-col w-full justify-center items-center gap-7 pb-2.5 animate-fade-in-up">
             <UserProfile />
@@ -81,7 +81,7 @@ const AnalysisPage = () => {
       ) : (
         <div
           key="detail"
-          className={`flex flex-col items-center overflow-hidden ${slideDirection === 'right' ? 'animate-slide-in-right' : ''}`}
+          className={`flex flex-col w-full justify-center items-center bg-[#F5EFFF] overflow-hidden ${slideDirection === 'right' ? 'animate-slide-in-right' : ''}`}
         >
           <DetailAnalysis onBack={handleBack} />
         </div>

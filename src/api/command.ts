@@ -27,6 +27,7 @@ export interface VideoAnalysisResponse {
     viewCount: number;
     uploadDate: string;
     category: string;
+    keyword: string;
     durationSeconds: number;
     score: {
       overall: number;

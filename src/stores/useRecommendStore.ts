@@ -25,9 +25,17 @@ interface RecommendStore {
   recommendations: RecommendItem[];
   setRecommendations: (data: RecommendItem[]) => void;
 
+  // 선택된 주제 인덱스
+  selectedSubjectIndex: number | null;
+  setSelectedSubjectIndex: (index: number | null) => void;
+
   // 추천 제목 (2차 API)
   titles: TitleItem[];
   setTitles: (data: TitleItem[]) => void;
+
+  // 외부에서 주제 선택 후 진입했는지 여부
+  autoSelectSubject: boolean;
+  setAutoSelectSubject: (value: boolean) => void;
 
   clear: () => void;
 }
@@ -39,14 +47,22 @@ const useRecommendStore = create<RecommendStore>(set => ({
   recommendations: [],
   setRecommendations: data => set({ recommendations: data }),
 
+  selectedSubjectIndex: null,
+  setSelectedSubjectIndex: index => set({ selectedSubjectIndex: index }),
+
   titles: [],
   setTitles: data => set({ titles: data }),
+
+  autoSelectSubject: false,
+  setAutoSelectSubject: value => set({ autoSelectSubject: value }),
 
   clear: () =>
     set({
       recommendations: [],
       titles: [],
       formInput: { requestURL: '', keywords: '', category: '', time: 0 },
+      selectedSubjectIndex: null,
+      autoSelectSubject: false,
     }),
 }));
 

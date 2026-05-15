@@ -6,9 +6,9 @@ const SummaryChannel = () => {
   const summary = data?.summary;
 
   return (
-    <div className="flex w-full px-2 py-4 flex-col justify-center items-center gap-2 rounded-xl border border-[#A594F9]">
+    <div className="flex w-full px-2 py-6 flex-col justify-between items-center gap-2 rounded-xl border border-[#A594F9]">
       <div className="flex w-full h-7 px-3 typo-body1-medium text-black">나의 채널 요약</div>
-      <div className="grid grid-cols-2 gap-4 w-full px-3 pb-4">
+      <div className="grid grid-cols-2 gap-4 w-full px-3">
         <SummaryContainer
           label="평균 조회수"
           value={summary?.avgViewCount ?? 0}

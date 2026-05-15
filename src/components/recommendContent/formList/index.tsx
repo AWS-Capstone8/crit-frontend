@@ -8,20 +8,20 @@ import useUserStore from '@/stores/useUserStore';
 import { useShallow } from 'zustand/react/shallow';
 
 const categories = [
-  'Games',
-  'Cooking',
-  'Reading',
-  'Travel',
-  'Music',
-  'Movies',
-  'Sports',
-  'Health & Wellness',
-  'Technology',
-  'Family & Friends',
-  'News & Current Events',
-  'History',
-  'Arts & Crafts',
-  'Nature',
+  '영화 / 애니메이션',
+  '자동차',
+  '음악',
+  '동물',
+  '스포츠',
+  '여행 / 이벤트',
+  '게임',
+  '인물 / 블로그',
+  '코미디',
+  '엔터테인먼트',
+  '뉴스 / 정치',
+  '노하우 / 스타일',
+  '교육',
+  '과학 / 기술',
 ];
 
 interface FormListProps {
@@ -32,25 +32,44 @@ interface FormListProps {
 const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
   const [collapsed, setCollapsed] = useState(false);
   const [searched, setSearched] = useState(false);
-  const [keyword, setKeyword] = useState(initialKeyword);
   const channelURL = useUserStore(s => s.channelURL);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [time, setTime] = useState(0);
   const [errorMsg, setErrorMsg] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
-  const { setRecommendations, setFormInput } = useRecommendStore(
+  const { setRecommendations, setFormInput, formInput, autoSelectSubject } = useRecommendStore(
     useShallow(s => ({
       setRecommendations: s.setRecommendations,
       setFormInput: s.setFormInput,
+      formInput: s.formInput,
+      autoSelectSubject: s.autoSelectSubject,
     })),
   );
+
+  // store에 값이 있으면 그걸로 초기화, 없으면 initialKeyword 사용
+  const [keyword, setKeyword] = useState(formInput.keywords || initialKeyword);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
+    // formInput.category가 "{카테고리1, 카테고리2}" 형식이면 파싱
+    if (formInput.category) {
+      const parsed = formInput.category.replace(/[{}]/g, '').split(', ').filter(Boolean);
+      return parsed;
+    }
+    return [];
+  });
+  const [time, setTime] = useState(formInput.time || 0);
 
   useEffect(() => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, []);
+
+  // autoSelectSubject가 true면 폼을 접은 상태로 시작
+  useEffect(() => {
+    if (autoSelectSubject && formInput.keywords) {
+      setCollapsed(true);
+      setSearched(true);
+    }
+  }, [autoSelectSubject, formInput.keywords]);
 
   const handleCategoryToggle = (category: string, checked: boolean) => {
     setSelectedCategories(prev =>
@@ -93,11 +112,11 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
         category: `{${selectedCategories.join(', ')}}`,
         time,
       });
+
+      onSearch?.();
     } catch (err) {
       console.error('추천 요청 실패:', err);
     }
-
-    onSearch?.();
   };
 
   return (
