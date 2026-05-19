@@ -724,7 +724,7 @@
     <div class="page-wrapper">
       <!-- SIDEBAR -->
       <aside class="sidebar">
-        <a href="#" class="sidebar-logo">
+        <a href="#top" class="sidebar-logo">
           <img src="./page_assets/icons/critLogo.svg" alt="CRiT" />
           <span>CRiT</span>
         </a>
@@ -755,7 +755,7 @@
       <!-- MAIN CONTENT -->
       <main class="main-content">
         <!-- Hero Section -->
-        <section class="hero-section">
+        <section id="top" class="hero-section">
           <div class="hero-content">
             <img src="./page_assets/icons/critLogo.svg" alt="CRiT Logo" class="hero-logo" />
             <h1 class="hero-title">CRiT</h1>
@@ -1313,38 +1313,53 @@
           <h2 id="team" class="section-title">👥 팀원</h2>
           <div class="team-grid">
             <div class="team-card">
-              <div class="team-avatar">백</div>
+              <div class="team-avatar">
+                <img src="./page_assets/images/team_image/백준현-image.png" alt="백준현" />
+              </div>
               <div class="team-info">
                 <h4>백준현</h4>
                 <span class="team-role">Backend</span>
+                <span class="team-role">UX Design</span>
               </div>
             </div>
             <div class="team-card">
-              <div class="team-avatar">공</div>
+              <div class="team-avatar">
+                <img src="./page_assets/images/team_image/공민경-image.png" alt="공민경" />
+              </div>
               <div class="team-info">
                 <h4>공민경</h4>
-                <span class="team-role">Frontend, Design</span>
+                <span class="team-role">Frontend</span>
+                <span class="team-role">Design</span>
               </div>
             </div>
             <div class="team-card">
-              <div class="team-avatar">박</div>
+              <div class="team-avatar">
+                <img src="./page_assets/images/team_image/박주호-image.png" alt="박주호" />
+              </div>
               <div class="team-info">
                 <h4>박주호</h4>
                 <span class="team-role">Frontend</span>
+                <span class="team-role">UX Engineering</span>
               </div>
             </div>
             <div class="team-card">
-              <div class="team-avatar">이</div>
+              <div class="team-avatar">
+                <img src="./page_assets/images/team_image/이재원-image.png" alt="이재원" />
+              </div>
               <div class="team-info">
                 <h4>이재원</h4>
                 <span class="team-role">Backend</span>
+                <span class="team-role">Infra Engineering</span>
               </div>
             </div>
             <div class="team-card">
-              <div class="team-avatar">이</div>
+              <div class="team-avatar">
+                <img src="./page_assets/images/team_image/이효진-image.png" alt="이효진" />
+              </div>
               <div class="team-info">
                 <h4>이효진</h4>
-                <span class="team-role">Data Engineering, Design</span>
+                <span class="team-role">Backend</span>
+                <span class="team-role">Design</span>
               </div>
             </div>
           </div>
@@ -1811,18 +1826,19 @@
         border-color: var(--primary);
       }
       .team-avatar {
-        width: 60px;
-        height: 60px;
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-        color: var(--white);
+        width: 72px;
+        height: 72px;
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        font-weight: 700;
+        overflow: hidden;
         margin: 0 auto 16px;
         box-shadow: 0 4px 16px rgba(107, 78, 255, 0.3);
+        border: 2px solid var(--primary-border);
+      }
+      .team-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
       }
       .team-info h4 {
         font-size: 16px;
@@ -1975,7 +1991,12 @@
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
+          const href = this.getAttribute('href');
+          if (href === '#') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+          }
+          const target = document.querySelector(href);
           if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
