@@ -134,14 +134,16 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
         </div>
         <div className="flex w-234 py-9 px-8 flex-col justify-center items-center gap-6 rounded-xl border border-black/10 bg-white">
           <div className="flex pb-14 pl-6 pr-4 flex-col items-start gap-12">
-            <div className="flex w-196 h-21 justify-center items-start gap-6">
-              <FormContainer
-                title="Keyword"
-                placeholder="예) 여행브이로그 / 다이어트 식단"
-                value={keyword}
-                onChange={setKeyword}
-              />
-              <div className="flex flex-col items-start gap-2 justify-center h-full">
+            <div className="flex w-196 h-21 items-start gap-6">
+              <div className="flex-1">
+                <FormContainer
+                  title="Keyword"
+                  placeholder="예) 여행브이로그 / 다이어트 식단"
+                  value={keyword}
+                  onChange={setKeyword}
+                />
+              </div>
+              <div className="flex flex-col items-start gap-2 justify-center h-full w-60 shrink-0">
                 <div className="typo-body1-medium text-[#0A0A0A]">내 채널 스타일 반영</div>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -150,7 +152,7 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
                     onChange={e => setUseChannelData(e.target.checked)}
                     className="w-5 h-5 accent-[#7C5CFF]"
                   />
-                  <span className="typo-label text-[#717171]">
+                  <span className="typo-label text-[#717171] whitespace-nowrap">
                     {useChannelData ? '채널 데이터를 분석하여 맞춤 추천' : '키워드·카테고리만으로 추천'}
                   </span>
                 </label>
