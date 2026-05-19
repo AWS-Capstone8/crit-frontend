@@ -36,6 +36,10 @@ interface Summary {
 interface Guide {
   title: string;
   description: string;
+  metric?: string;
+  current?: number;
+  target?: number;
+  benchmark?: { p25: number; p50: number; p75: number };
 }
 
 interface PercentileVideo {
