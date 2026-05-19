@@ -44,7 +44,7 @@ const Header = () => {
           <div className="text-black">트렌드</div>
         </div>
       </div>
-      <div className="flex w-40 h-9 justify-center items-center">
+      <div className="flex h-9 justify-center items-center whitespace-nowrap">
         <div className="text-[#6B4EFF] typo-body2">{channelName}</div>
         <div className="text-black typo-body2">&nbsp;님 어서오세요!</div>
       </div>
