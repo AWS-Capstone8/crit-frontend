@@ -2,11 +2,11 @@
 
 export const mockChannelAnalysisResponse = {
   channel: {
-    handle: '@t1_faker',
+    handle: '@CRiT',
     profileImageUrl: '',
     channelId: 'UCpJw2H9KKqwCCGQKRh1Bf2w',
-    name: 'T1 Faker',
-    subscriberCount: 2110000,
+    name: 'CRiT',
+    subscriberCount: 100000000,
   },
   channelScore: {
     overall: 68,
@@ -64,7 +64,7 @@ export const mockChannelAnalysisResponse = {
   percentileVideoAnalysis: [
     {
       videoId: 'VXEXCOUOOBM',
-      title: '너 뭐 하는 애니?',
+      title: 'AI 추천 CRiT의 등장',
       thumbnailUrl: '',
       percentileScore: 51,
       reason:
@@ -72,7 +72,7 @@ export const mockChannelAnalysisResponse = {
     },
     {
       videoId: 'IT0mlafrYEM',
-      title: '매혹',
+      title: 'AI로 성장하는 인플루언서',
       thumbnailUrl: '',
       percentileScore: 65,
       reason:
