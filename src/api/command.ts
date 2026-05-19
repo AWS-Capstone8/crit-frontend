@@ -81,13 +81,14 @@ export interface VideoAnalysisResponse {
 
 // POST /ai_recommend - AI 추천 주제 요청
 export const postRecommend = async (data: RecommendRequest) => {
-  const response = await api.post('/ai_recommend', null, {
-    params: {
-      requestURL: data.requestURL,
-      keywords: data.keywords,
-      category: data.category,
-    },
-  });
+  const params: Record<string, string> = {
+    keywords: data.keywords,
+    category: data.category,
+  };
+  if (data.requestURL) {
+    params.requestURL = data.requestURL;
+  }
+  const response = await api.post('/ai_recommend', null, { params });
   return response.data;
 };
 
