@@ -47,7 +47,7 @@ const AnalysisPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
+    <div className={`min-h-screen flex flex-col justify-center items-center ${showDetail ? 'bg-[#F5EFFF]' : 'bg-white'}`}>
       <Header />
       {!showDetail ? (
         <div
@@ -81,7 +81,7 @@ const AnalysisPage = () => {
       ) : (
         <div
           key="detail"
-          className={`flex flex-col w-full justify-center items-center bg-[#F5EFFF] overflow-hidden ${slideDirection === 'right' ? 'animate-slide-in-right' : ''}`}
+          className={`flex flex-col w-full justify-center items-center bg-transparent overflow-hidden ${slideDirection === 'right' ? 'animate-slide-in-right' : ''}`}
         >
           <DetailAnalysis onBack={handleBack} />
         </div>
