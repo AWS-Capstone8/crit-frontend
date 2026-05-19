@@ -7,7 +7,7 @@ export const mockVideoAnalysisResponse = {
     thumbnailUrl: 'https://i.ytimg.com/vi/dQw4w9WgXcQ/mqdefault.jpg',
     viewCount: 185000,
     uploadDate: '2024-03-15',
-    category: '과학/기술',
+    category: '과학 / 기술',
     keyword: '구글, 신제품, IT, 테크',
     durationSeconds: 743,
     score: {

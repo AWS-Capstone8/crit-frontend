@@ -14,6 +14,7 @@ const LoginPage = () => {
     const token = params.get('token');
     const channelName = params.get('channelName');
     const channelURL = params.get('channelUrl');
+    // 이메일과 가입일을 로그인했을 때, 추가로 받으면 좋을 것 같습니다. (가입일이라 함은 CRiT 서비스를 가입한 날짜)
 
     if (token) {
       localStorage.setItem('token', token);
