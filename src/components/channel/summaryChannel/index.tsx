@@ -28,6 +28,7 @@ const SummaryChannel = () => {
           label="구독자 증가수"
           value={summary?.subscriberChange ?? 0}
           changePercent={summary?.subscriberChangePercent ?? 0}
+          isFirstAnalysis={summary?.isFirstAnalysis}
         />
       </div>
     </div>

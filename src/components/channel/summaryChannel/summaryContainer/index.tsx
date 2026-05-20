@@ -15,6 +15,7 @@ interface SummaryContainerProps {
   label: string;
   value: number;
   changePercent: number;
+  isFirstAnalysis?: boolean;
 }
 
 const formatValue = (label: string, value: number): string => {
@@ -37,7 +38,7 @@ const formatValue = (label: string, value: number): string => {
   }
 };
 
-const SummaryContainer = ({ label, value, changePercent }: SummaryContainerProps) => {
+const SummaryContainer = ({ label, value, changePercent, isFirstAnalysis }: SummaryContainerProps) => {
   const isUp = changePercent > 0;
   const isDown = changePercent < 0;
   const isNeutral = changePercent === 0;
@@ -54,17 +55,17 @@ const SummaryContainer = ({ label, value, changePercent }: SummaryContainerProps
         </div>
         <div className="flex w-full justify-between items-center">
           <div className="text-black text-xl font-semibold leading-[140%] tracking-wide">
-            {formatValue(label, value)}
+            {isFirstAnalysis && label === '구독자 증가수' ? '첫 분석' : formatValue(label, value)}
           </div>
           <div
-            className={`flex px-2 py-1 w-13 gap-0.5 justify-center items-center rounded-xl ${isUp ? 'bg-[#DEF3E195]' : isDown ? 'bg-[#FFEFEF]' : 'bg-[#FFFCEF]'}`}
+            className={`flex px-2 py-1 w-13 gap-0.5 justify-center items-center rounded-xl ${isFirstAnalysis && label === '구독자 증가수' ? 'bg-[#E8E0FF]' : isUp ? 'bg-[#DEF3E195]' : isDown ? 'bg-[#FFEFEF]' : 'bg-[#FFFCEF]'}`}
           >
-            {isUp && <TriangleIcon className="w-2.5 h-2.5 text-[#5AC467]" />}
-            {isDown && <TriangleIcon className="w-2.5 h-2.5 text-[#FF0000] rotate-180" />}
+            {isFirstAnalysis && label === '구독자 증가수' ? null : isUp && <TriangleIcon className="w-2.5 h-2.5 text-[#5AC467]" />}
+            {isFirstAnalysis && label === '구독자 증가수' ? null : isDown && <TriangleIcon className="w-2.5 h-2.5 text-[#FF0000] rotate-180" />}
             <div
-              className={`text-xs font-semibold ${isUp ? 'text-[#5AC467]' : isDown ? 'text-[#FF0000]' : 'text-[#FF9D00]'}`}
+              className={`text-xs font-semibold ${isFirstAnalysis && label === '구독자 증가수' ? 'text-[#7C5CFF]' : isUp ? 'text-[#5AC467]' : isDown ? 'text-[#FF0000]' : 'text-[#FF9D00]'}`}
             >
-              {isNeutral ? '보통' : `${Math.abs(changePercent)}%`}
+              {isFirstAnalysis && label === '구독자 증가수' ? 'NEW' : isNeutral ? '보통' : `${Math.abs(changePercent)}%`}
             </div>
           </div>
         </div>

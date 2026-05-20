@@ -25,7 +25,8 @@ const VideoInfo = () => {
   };
 
   // 업로드 날짜 포맷팅 (2024-03-15 -> "2024.03.15")
-  const formatUploadDate = (date: string) => {
+  const formatUploadDate = (date: string | null | undefined) => {
+    if (!date) return '-';
     return date.replace(/-/g, '.');
   };
 

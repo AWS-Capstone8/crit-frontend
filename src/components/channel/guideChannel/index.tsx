@@ -17,7 +17,15 @@ const GuideChannel = () => {
       <div className="flex w-full gap-8 justify-center items-center">
         {guides.length > 0 ? (
           guides.map((guide, i) => (
-            <GuideItem key={i} comment={guide.title} subcomment={guide.description} />
+            <GuideItem
+              key={i}
+              comment={guide.title}
+              subcomment={guide.description}
+              metric={guide.metric}
+              current={guide.current}
+              target={guide.target}
+              benchmark={guide.benchmark}
+            />
           ))
         ) : (
           <div className="text-sm text-gray-400 py-4 animate-loading-pulse">
