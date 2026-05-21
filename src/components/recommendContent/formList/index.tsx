@@ -45,8 +45,9 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
     })),
   );
 
+  const isLoggedIn = !!channelURL;
   const [keyword, setKeyword] = useState(formInput.keywords || initialKeyword);
-  const [useChannelData, setUseChannelData] = useState(true);
+  const [useChannelData, setUseChannelData] = useState(isLoggedIn);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
     // formInput.category가 "{카테고리1, 카테고리2}" 형식이면 파싱
     if (formInput.category) {
@@ -145,15 +146,16 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
               </div>
               <div className="flex flex-col items-start gap-2 justify-center h-full w-60 shrink-0">
                 <div className="typo-body1-medium text-[#0A0A0A]">내 채널 스타일 반영</div>
-                <label className="flex items-center gap-2 cursor-pointer">
+                <label className={`flex items-center gap-2 ${isLoggedIn ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
                   <input
                     type="checkbox"
                     checked={useChannelData}
-                    onChange={e => setUseChannelData(e.target.checked)}
+                    onChange={e => isLoggedIn && setUseChannelData(e.target.checked)}
+                    disabled={!isLoggedIn}
                     className="w-5 h-5 accent-[#7C5CFF]"
                   />
                   <span className="typo-label text-[#717171] whitespace-nowrap">
-                    {useChannelData ? '채널 데이터를 분석하여 맞춤 추천' : '키워드·카테고리만으로 추천'}
+                    {!isLoggedIn ? '로그인 후 사용 가능' : useChannelData ? '채널 데이터를 분석하여 맞춤 추천' : '키워드·카테고리만으로 추천'}
                   </span>
                 </label>
               </div>

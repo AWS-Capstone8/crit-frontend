@@ -16,10 +16,10 @@ const Router = () => {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/oauth-callback" element={<LoginPage />} />
-          <Route path="/" element={<PrivateRoute />}>
-            <Route index element={<MainPage />} />
-            <Route path="recommend" element={<RecommendPage />} />
-            <Route path="analysis" element={<AnalysisPage />} />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/recommend" element={<RecommendPage />} />
+          <Route path="/analysis" element={<PrivateRoute />}>
+            <Route index element={<AnalysisPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
