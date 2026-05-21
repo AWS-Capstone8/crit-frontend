@@ -20,11 +20,11 @@ const AnalysisPage = () => {
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const fetchData = async () => {
+  const fetchData = async (force = false) => {
     const url = channelURL;
     if (!url) return;
     try {
-      const res = await getChannelAnalysis(url);
+      const res = await getChannelAnalysis(url, force);
       setData(res);
     } catch (err) {
       console.error('채널 분석 요청 실패:', err);
@@ -37,7 +37,7 @@ const AnalysisPage = () => {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    await fetchData();
+    await fetchData(true);
     setIsRefreshing(false);
   };
 

@@ -108,9 +108,9 @@ export const postScript = async (data: ScriptRequest) => {
 };
 
 // GET /analyze/channel - 채널 분석 요청
-export const getChannelAnalysis = async (channel: string) => {
+export const getChannelAnalysis = async (channel: string, force = false) => {
   const response = await api.get('/analyze/channel', {
-    params: { channel },
+    params: { channel, force },
   });
   return response.data;
 };
