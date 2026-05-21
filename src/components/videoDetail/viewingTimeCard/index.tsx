@@ -147,33 +147,20 @@ const ViewingTimeCard = () => {
                     return (
                       <div
                         key={i}
-                        className="absolute w-4 h-full cursor-pointer"
-                        style={{
-                          left: `calc(${xPercent}% - 8px)`,
-                          top: 0,
-                        }}
+                        className="absolute w-4 h-full cursor-pointer chart-hover-zone"
+                        style={{ '--chart-x': xPercent } as React.CSSProperties}
                         onMouseEnter={() => setHoverIndex(i)}
                         onMouseLeave={() => setHoverIndex(null)}
                       >
                         {isVisible && (
                           <>
                             <div
-                              className="absolute w-2 h-2 rounded-full bg-[#9F8CFF]"
-                              style={{
-                                left: '4px',
-                                top: `${yPercent}%`,
-                                transform: 'translate(-50%, -50%)',
-                              }}
+                              className="absolute w-2 h-2 rounded-full bg-[#9F8CFF] chart-dot-left"
+                              style={{ '--chart-y': yPercent } as React.CSSProperties}
                             />
                             <div
-                              className="absolute flex flex-col items-center px-3 py-2 rounded-xl text-black whitespace-nowrap z-10 border border-[#6B42FF]"
-                              style={{
-                                left: '50%',
-                                top: `${yPercent}%`,
-                                transform: 'translate(-50%, -120%)',
-                                background: 'rgba(255, 255, 255, 0.85)',
-                                backdropFilter: 'blur(27px)',
-                              }}
+                              className="absolute flex flex-col items-center px-3 py-2 rounded-xl text-black whitespace-nowrap z-10 border border-[#6B42FF] glass-tooltip-muted chart-tooltip-center"
+                              style={{ '--chart-y': yPercent } as React.CSSProperties}
                             >
                               <div className="typo-body5">평균 시청 지속 시간</div>
                               <div className="typo-body4-semibold">

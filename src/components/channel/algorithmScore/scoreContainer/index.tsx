@@ -48,10 +48,15 @@ const ScoreContainer = ({
           </div>
         )}
       </div>
-      <div className="flex-1 h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: track }}>
+      <div
+        className="flex-1 h-2.5 rounded-full overflow-hidden progress-bar-track"
+        style={{ '--progress-track': track } as React.CSSProperties}
+      >
         <div
-          className="h-full rounded-full transition-all duration-700 ease-out"
-          style={{ width: `${percent}%`, backgroundColor: fill }}
+          className="h-full rounded-full transition-all duration-700 ease-out progress-bar-fill"
+          style={
+            { '--progress-width': `${percent}%`, '--progress-fill': fill } as React.CSSProperties
+          }
         />
       </div>
       <div className="w-8 text-right text-sm font-bold text-black">{score}</div>

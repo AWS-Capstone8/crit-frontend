@@ -38,7 +38,12 @@ const formatValue = (label: string, value: number): string => {
   }
 };
 
-const SummaryContainer = ({ label, value, changePercent, isFirstAnalysis }: SummaryContainerProps) => {
+const SummaryContainer = ({
+  label,
+  value,
+  changePercent,
+  isFirstAnalysis,
+}: SummaryContainerProps) => {
   const isUp = changePercent > 0;
   const isDown = changePercent < 0;
   const isNeutral = changePercent === 0;
@@ -60,12 +65,20 @@ const SummaryContainer = ({ label, value, changePercent, isFirstAnalysis }: Summ
           <div
             className={`flex px-2 py-1 w-13 gap-0.5 justify-center items-center rounded-xl ${isFirstAnalysis && label === '구독자 증가수' ? 'bg-[#E8E0FF]' : isUp ? 'bg-[#DEF3E195]' : isDown ? 'bg-[#FFEFEF]' : 'bg-[#FFFCEF]'}`}
           >
-            {isFirstAnalysis && label === '구독자 증가수' ? null : isUp && <TriangleIcon className="w-2.5 h-2.5 text-[#5AC467]" />}
-            {isFirstAnalysis && label === '구독자 증가수' ? null : isDown && <TriangleIcon className="w-2.5 h-2.5 text-[#FF0000] rotate-180" />}
+            {isFirstAnalysis && label === '구독자 증가수'
+              ? null
+              : isUp && <TriangleIcon className="w-2.5 h-2.5 text-[#5AC467]" />}
+            {isFirstAnalysis && label === '구독자 증가수'
+              ? null
+              : isDown && <TriangleIcon className="w-2.5 h-2.5 text-[#FF0000] rotate-180" />}
             <div
               className={`text-xs font-semibold ${isFirstAnalysis && label === '구독자 증가수' ? 'text-[#7C5CFF]' : isUp ? 'text-[#5AC467]' : isDown ? 'text-[#FF0000]' : 'text-[#FF9D00]'}`}
             >
-              {isFirstAnalysis && label === '구독자 증가수' ? 'NEW' : isNeutral ? '보통' : `${Math.abs(changePercent)}%`}
+              {isFirstAnalysis && label === '구독자 증가수'
+                ? 'NEW'
+                : isNeutral
+                  ? '보통'
+                  : `${Math.abs(changePercent)}%`}
             </div>
           </div>
         </div>

@@ -16,10 +16,7 @@ const CircleProgress = ({ score, maxScore = 100, rank }: CircleProgressProps) =>
   const { fill, track } = getScoreColors(score);
 
   return (
-    <div
-      className="relative flex items-center justify-center"
-      style={{ width: size, height: size }}
-    >
+    <div className="relative flex items-center justify-center w-40 h-40">
       <svg width={size} height={size} className="-rotate-90">
         <circle
           cx={size / 2}
@@ -47,8 +44,8 @@ const CircleProgress = ({ score, maxScore = 100, rank }: CircleProgressProps) =>
         <span className="text-sm text-gray-400">/{maxScore}</span>
         {rank && (
           <span
-            className="mt-1 px-2 py-0.5 rounded-full text-xs font-semibold"
-            style={{ backgroundColor: track, color: fill }}
+            className="mt-1 px-2 py-0.5 rounded-full text-xs font-semibold score-badge-dynamic"
+            style={{ '--score-track': track, '--score-fill': fill } as React.CSSProperties}
           >
             {rank}
           </span>

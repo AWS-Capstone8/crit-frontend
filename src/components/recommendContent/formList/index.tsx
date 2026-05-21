@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import FormContainer from '@/components/recommendContent/formList/formContainer';
 import CheckBox from '@/components/recommendContent/formList/checkBox';
 import TimeSlider from '@/components/recommendContent/formList/timeSlider';
+import ToggleSwitch from '@/components/recommendContent/formList/toggleSwitch';
+import InfoIcon from '@/assets/icons/score-icons/video-detail/info-icon.svg?react';
 import { postRecommend } from '@/api/command';
 import useRecommendStore from '@/stores/useRecommendStore';
 import useUserStore from '@/stores/useUserStore';
@@ -30,18 +32,23 @@ interface FormListProps {
 }
 
 const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [searched, setSearched] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    const { autoSelectSubject, formInput } = useRecommendStore.getState();
+    return autoSelectSubject && !!formInput.keywords;
+  });
+  const [searched, setSearched] = useState(() => {
+    const { autoSelectSubject, formInput } = useRecommendStore.getState();
+    return autoSelectSubject && !!formInput.keywords;
+  });
   const channelURL = useUserStore(s => s.channelURL);
   const [errorMsg, setErrorMsg] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
-  const { setRecommendations, setFormInput, formInput, autoSelectSubject } = useRecommendStore(
+  const { setRecommendations, setFormInput, formInput } = useRecommendStore(
     useShallow(s => ({
       setRecommendations: s.setRecommendations,
       setFormInput: s.setFormInput,
       formInput: s.formInput,
-      autoSelectSubject: s.autoSelectSubject,
     })),
   );
 
@@ -63,14 +70,6 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, []);
-
-  // autoSelectSubject가 true면 폼을 접은 상태로 시작
-  useEffect(() => {
-    if (autoSelectSubject && formInput.keywords) {
-      setCollapsed(true);
-      setSearched(true);
-    }
-  }, [autoSelectSubject, formInput.keywords]);
 
   const handleCategoryToggle = (category: string, checked: boolean) => {
     setSelectedCategories(prev =>
@@ -99,7 +98,7 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
     setCollapsed(true);
     setSearched(true);
 
-    const requestURL = useChannelData ? (channelURL || '') : '';
+    const requestURL = useChannelData ? channelURL || '' : '';
 
     try {
       const res = await postRecommend({
@@ -125,18 +124,23 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
     <div className="flex w-250 pt-18 pb-12 px-8 flex-col justify-end items-center gap-10 rounded-xl bg-[#F5EFFF]">
       <div
         ref={contentRef}
-        className="flex flex-col overflow-hidden transition-all duration-500 ease-in-out gap-4"
-        style={{ maxHeight: collapsed ? 0 : contentHeight, opacity: collapsed ? 0 : 1 }}
+        className={`flex flex-col collapse-panel gap-4 ${!collapsed ? 'is-open' : ''}`}
+        style={
+          {
+            '--collapse-max-height': collapsed ? '0px' : `${contentHeight}px`,
+            '--collapse-opacity': collapsed ? 0 : 1,
+          } as React.CSSProperties
+        }
       >
         <div className="flex justify-center w-full typo-body1-medium text-[#717171] text-center whitespace-pre-line">
           {
             '원하는 키워드와 채널 정보를 입력하면\nAI가 트렌드와 채널 데이터를 분석해 맞춤 콘텐츠 아이디어를 추천합니다.'
           }
         </div>
-        <div className="flex w-234 py-9 px-8 flex-col justify-center items-center gap-6 rounded-xl border border-black/10 bg-white">
-          <div className="flex pb-14 pl-6 pr-4 flex-col items-start gap-12">
-            <div className="flex w-196 h-21 items-start gap-6">
-              <div className="flex-1">
+        <div className="flex w-234 py-9 px-8 flex-col justify-center items-center gap-6 rounded-xl border border-black/10 bg-white overflow-visible">
+          <div className="flex w-full pb-14 pl-6 pr-4 flex-col items-start gap-12 overflow-visible">
+            <div className="flex w-full items-start gap-6 overflow-visible">
+              <div className="flex-1 min-w-0">
                 <FormContainer
                   title="Keyword"
                   placeholder="예) 여행브이로그 / 다이어트 식단"
@@ -144,20 +148,35 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
                   onChange={setKeyword}
                 />
               </div>
-              <div className="flex flex-col items-start gap-2 justify-center h-full w-60 shrink-0">
-                <div className="typo-body1-medium text-[#0A0A0A]">내 채널 스타일 반영</div>
-                <label className={`flex items-center gap-2 ${isLoggedIn ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
-                  <input
-                    type="checkbox"
-                    checked={useChannelData}
-                    onChange={e => isLoggedIn && setUseChannelData(e.target.checked)}
-                    disabled={!isLoggedIn}
-                    className="w-5 h-5 accent-[#7C5CFF]"
-                  />
-                  <span className="typo-label text-[#717171] whitespace-nowrap">
-                    {!isLoggedIn ? '로그인 후 사용 가능' : useChannelData ? '채널 데이터를 분석하여 맞춤 추천' : '키워드·카테고리만으로 추천'}
-                  </span>
-                </label>
+              <div className="flex-1 min-w-0">
+                <FormContainer
+                  title="채널 스타일 분석"
+                  titleAddon={
+                    <div className="relative group overflow-visible">
+                      <InfoIcon className="w-4 h-4 text-[#8257B4] cursor-pointer shrink-0" />
+                      <div className="absolute left-1/2 bottom-full mb-2 -translate-x-1/2 px-3 py-2 bg-white/85 backdrop-blur-[27px] text-black typo-body6 rounded-xl border border-[#6B42FF] whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                        {isLoggedIn
+                          ? '내 채널의 콘텐츠 성향을 분석해 추천 결과에 반영합니다.'
+                          : '로그인 후 내 채널 데이터를 분석해 맞춤형 주제를 추천할 수 있습니다.'}
+                      </div>
+                    </div>
+                  }
+                  titleRight={
+                    <ToggleSwitch
+                      checked={useChannelData}
+                      onChange={setUseChannelData}
+                      disabled={!isLoggedIn}
+                    />
+                  }
+                >
+                  <div className="flex h-12 py-1 px-3 items-center self-stretch rounded-lg border border-transparent bg-[#FEF8FF] typo-body2 text-[#717171] truncate">
+                    {!isLoggedIn
+                      ? '로그인 후 사용 가능'
+                      : useChannelData
+                        ? channelURL
+                        : '키워드·카테고리만으로 추천'}
+                  </div>
+                </FormContainer>
               </div>
             </div>
             <div className="flex w-196 flex-col items-start gap-4">
@@ -202,8 +221,7 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
             className="absolute right-0 flex items-center gap-1 cursor-pointer text-[#0a0a0a89] active:text-[#6B4EFF] typo-label"
           >
             <svg
-              className="w-4 h-4 transition-transform duration-300"
-              style={{ transform: collapsed ? 'rotate(0deg)' : 'rotate(180deg)' }}
+              className={`w-4 h-4 transition-transform duration-300 ${collapsed ? 'rotate-0' : 'rotate-180'}`}
               viewBox="0 0 16 16"
             >
               <path

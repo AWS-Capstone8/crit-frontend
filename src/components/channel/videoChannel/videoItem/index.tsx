@@ -29,7 +29,10 @@ const VideoItem = ({ title, thumbnailUrl, score, description, onClick }: VideoIt
         <div className="flex w-full justify-start text-black typo-title1">{title}</div>
         <div className="flex flex-col w-full gap-2.5 justify-center items-center">
           <div className="flex w-full justify-start items-center gap-0.5">
-            <div className="typo-title1" style={{ color: fill }}>
+            <div
+              className="typo-title1 text-score-dynamic"
+              style={{ '--score-color': fill } as React.CSSProperties}
+            >
               {score}
             </div>
             <div className="typo-body1-medium text-black">&nbsp;/ 100점</div>

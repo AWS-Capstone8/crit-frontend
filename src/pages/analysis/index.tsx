@@ -47,7 +47,9 @@ const AnalysisPage = () => {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col justify-center items-center ${showDetail ? 'bg-[#F5EFFF]' : 'bg-white'}`}>
+    <div
+      className={`min-h-screen flex flex-col justify-center items-center ${showDetail ? 'bg-[#F5EFFF]' : 'bg-white'}`}
+    >
       <Header />
       {!showDetail ? (
         <div
@@ -58,23 +60,14 @@ const AnalysisPage = () => {
             <UserProfile />
             <div className="w-full h-0.25 bg-[#A594F9]" />
           </div>
-          <div
-            className="flex w-full justify-center items-center gap-2 pb-2.5 animate-fade-in-up"
-            style={{ animationDelay: '0.15s' }}
-          >
+          <div className="flex w-full justify-center items-center gap-2 pb-2.5 animate-fade-in-up animate-delay-150">
             <AlgorithmScore />
             <SummaryChannel />
           </div>
-          <div
-            className="flex w-full justify-center items-center pb-2.5 animate-fade-in-up"
-            style={{ animationDelay: '0.3s' }}
-          >
+          <div className="flex w-full justify-center items-center pb-2.5 animate-fade-in-up animate-delay-300">
             <GuideChannel />
           </div>
-          <div
-            className="flex w-full justify-center items-center pt-2.5 animate-fade-in-up"
-            style={{ animationDelay: '0.45s' }}
-          >
+          <div className="flex w-full justify-center items-center pt-2.5 animate-fade-in-up animate-delay-450">
             <VideoChannel onVideoClick={handleVideoClick} />
           </div>
         </div>

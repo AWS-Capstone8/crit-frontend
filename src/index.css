@@ -154,6 +154,160 @@
     line-height: normal;
     letter-spacing: 0;
   }
+
+  /* ===== 로그인 페이지 타이포 ===== */
+
+  /* typo-login-title: 35px / semi bold / -2.5% / 140% */
+  .typo-login-title {
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 49px;
+    letter-spacing: -0.875px;
+  }
+
+  /* typo-login-body: 20px / medium / 5% / 28px */
+  .typo-login-body {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 1px;
+  }
+
+  /* typo-login-guest: 18px / medium / 5% / 28px */
+  .typo-login-guest {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+    letter-spacing: 1px;
+  }
+
+  /* ===== 애니메이션 딜레이 ===== */
+
+  .animate-delay-150 {
+    animation-delay: 0.15s;
+  }
+
+  .animate-delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .animate-delay-450 {
+    animation-delay: 0.45s;
+  }
+
+  .animate-delay-600 {
+    animation-delay: 0.6s;
+  }
+
+  .animate-delay-stagger {
+    animation-delay: calc(var(--stagger-index, 0) * 0.15s);
+  }
+
+  /* ===== 접기/펼치기 패널 (--collapse-max-height, --collapse-opacity) ===== */
+
+  .collapse-panel {
+    overflow: hidden;
+    transition:
+      max-height 500ms ease-in-out,
+      opacity 500ms ease-in-out;
+    max-height: var(--collapse-max-height, 9999px);
+    opacity: var(--collapse-opacity, 1);
+  }
+
+  .collapse-panel.is-open {
+    overflow: visible;
+  }
+
+  /* ===== 프로그레스 바 (--progress-track, --progress-fill, --progress-width) ===== */
+
+  .progress-bar-track {
+    background-color: var(--progress-track);
+  }
+
+  .progress-bar-fill {
+    width: var(--progress-width, 0%);
+    background-color: var(--progress-fill);
+  }
+
+  /* ===== 점수 색상 (--score-color, --score-track, --score-fill) ===== */
+
+  .text-score-dynamic {
+    color: var(--score-color);
+  }
+
+  .score-badge-dynamic {
+    background-color: var(--score-track);
+    color: var(--score-fill);
+  }
+
+  /* ===== 차트 오버레이 (--chart-x, --chart-y) ===== */
+
+  .chart-hover-zone {
+    left: calc(var(--chart-x) * 1% - 8px);
+    top: 0;
+  }
+
+  .chart-vline-center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .chart-dot-center {
+    left: 50%;
+    top: calc(var(--chart-y) * 1%);
+    transform: translate(-50%, -50%);
+  }
+
+  .chart-dot-left {
+    left: 4px;
+    top: calc(var(--chart-y) * 1%);
+    transform: translate(-50%, -50%);
+  }
+
+  .chart-tooltip-center {
+    left: 50%;
+    top: calc(var(--chart-y) * 1%);
+    transform: translate(-50%, -120%);
+  }
+
+  .glass-tooltip {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(27px);
+  }
+
+  .glass-tooltip-muted {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(27px);
+  }
+
+  /* ===== 슬라이더 (--slider-percent) ===== */
+
+  .slider-value-tooltip {
+    left: calc(var(--slider-percent) * 1% - 16px);
+  }
+
+  /* ===== 벤치마크 바 (--benchmark-progress, --benchmark-marker) ===== */
+
+  .benchmark-progress-fill {
+    width: calc(var(--benchmark-progress) * 1%);
+  }
+
+  .benchmark-marker {
+    left: calc(var(--benchmark-marker) * 1%);
+  }
+
+  /* ===== 탭 인디케이터 ===== */
+
+  .tab-indicator-left {
+    transform: translateX(-50%);
+  }
+
+  .tab-indicator-right {
+    transform: translateX(50%);
+  }
 }
 
 /* Script scrollbar */

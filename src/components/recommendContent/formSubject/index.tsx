@@ -12,39 +12,28 @@ interface FormSubjectProps {
 const FormSubject = ({ onSelect }: FormSubjectProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
-  const { recommendations, formInput, selectedSubjectIndex, autoSelectSubject } = useRecommendStore(
+  const { recommendations, formInput } = useRecommendStore(
     useShallow(s => ({
       recommendations: s.recommendations,
       formInput: s.formInput,
-      selectedSubjectIndex: s.selectedSubjectIndex,
-      autoSelectSubject: s.autoSelectSubject,
     })),
   );
-  const setAutoSelectSubject = useRecommendStore(s => s.setAutoSelectSubject);
   const setData = useAIFormStore(s => s.setData);
 
-  // autoSelectSubject일 때 초기 상태 설정
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(
-    autoSelectSubject ? selectedSubjectIndex : null,
-  );
-  const [collapsed, setCollapsed] = useState(autoSelectSubject && selectedSubjectIndex !== null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
+    const { autoSelectSubject, selectedSubjectIndex } = useRecommendStore.getState();
+    return autoSelectSubject ? selectedSubjectIndex : null;
+  });
+  const [collapsed, setCollapsed] = useState(() => {
+    const { autoSelectSubject, selectedSubjectIndex } = useRecommendStore.getState();
+    return autoSelectSubject && selectedSubjectIndex !== null;
+  });
 
   useEffect(() => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, [recommendations]);
-
-  // 외부에서 주제 선택 후 진입한 경우 (API는 이미 호출됨)
-  useEffect(() => {
-    if (autoSelectSubject && selectedSubjectIndex !== null && recommendations.length > 0) {
-      setSelectedIndex(selectedSubjectIndex);
-      setCollapsed(true);
-      // selectedSubjectIndex는 유지하고 autoSelectSubject만 false로
-      setAutoSelectSubject(false);
-      onSelect?.();
-    }
-  }, [autoSelectSubject, selectedSubjectIndex, recommendations, setAutoSelectSubject, onSelect]);
 
   const handleClick = async (index: number) => {
     setSelectedIndex(index);
@@ -85,8 +74,13 @@ const FormSubject = ({ onSelect }: FormSubjectProps) => {
     <div className="flex w-250 py-14 px-8 flex-col justify-end items-center gap-10 rounded-xl bg-[#F5EFFF]">
       <div
         ref={contentRef}
-        className="flex flex-col items-center gap-10 overflow-hidden transition-all duration-500 ease-in-out w-full"
-        style={{ maxHeight: collapsed ? 0 : contentHeight, opacity: collapsed ? 0 : 1 }}
+        className="flex flex-col items-center collapse-panel gap-10 w-full"
+        style={
+          {
+            '--collapse-max-height': collapsed ? '0px' : `${contentHeight}px`,
+            '--collapse-opacity': collapsed ? 0 : 1,
+          } as React.CSSProperties
+        }
       >
         <div className="flex w-full justify-center typo-title-bold text-[#717171] text-center whitespace-pre-line">
           {
@@ -97,8 +91,8 @@ const FormSubject = ({ onSelect }: FormSubjectProps) => {
           ? recommendations.map((item, i) => (
               <div
                 key={i}
-                className="animate-fade-in-up w-full flex justify-center"
-                style={{ animationDelay: `${i * 0.15}s` }}
+                className="animate-fade-in-up animate-delay-stagger w-full flex justify-center"
+                style={{ '--stagger-index': i } as React.CSSProperties}
               >
                 <SubjectItem
                   subject={item.suggestedTitle}
@@ -111,8 +105,8 @@ const FormSubject = ({ onSelect }: FormSubjectProps) => {
           : [0, 1, 2].map(i => (
               <div
                 key={i}
-                className="animate-fade-in-up w-full flex justify-center"
-                style={{ animationDelay: `${i * 0.15}s` }}
+                className="animate-fade-in-up animate-delay-stagger w-full flex justify-center"
+                style={{ '--stagger-index': i } as React.CSSProperties}
               >
                 <SubjectItem />
               </div>
@@ -125,8 +119,7 @@ const FormSubject = ({ onSelect }: FormSubjectProps) => {
             className="absolute right-0 flex items-center gap-1 cursor-pointer text-[#0a0a0a89] active:text-[#6B4EFF] typo-label"
           >
             <svg
-              className="w-4 h-4 transition-transform duration-300"
-              style={{ transform: collapsed ? 'rotate(0deg)' : 'rotate(180deg)' }}
+              className={`w-4 h-4 transition-transform duration-300 ${collapsed ? 'rotate-0' : 'rotate-180'}`}
               viewBox="0 0 16 16"
             >
               <path
