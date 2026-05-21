@@ -18,20 +18,28 @@ const AnalysisPage = () => {
   const channelURL = useUserStore(s => s.channelURL);
   const [showDetail, setShowDetail] = useState(false);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const fetchData = async (force = false) => {
+    const url = channelURL;
+    if (!url) return;
+    try {
+      const res = await getChannelAnalysis(url, force);
+      setData(res);
+    } catch (err) {
+      console.error('채널 분석 요청 실패:', err);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const url = channelURL;
-      if (!url) return;
-      try {
-        const res = await getChannelAnalysis(url);
-        setData(res);
-      } catch (err) {
-        console.error('채널 분석 요청 실패:', err);
-      }
-    };
     fetchData();
   }, [setData, channelURL]);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchData(true);
+    setIsRefreshing(false);
+  };
 
   const handleVideoClick = () => {
     setSlideDirection('right');
@@ -57,7 +65,7 @@ const AnalysisPage = () => {
           className={`flex flex-col w-300 items-center pt-10 px-10 overflow-hidden ${slideDirection === 'left' ? 'animate-slide-in-left' : ''}`}
         >
           <div className="flex flex-col w-full justify-center items-center gap-7 pb-2.5 animate-fade-in-up">
-            <UserProfile />
+            <UserProfile onRefresh={handleRefresh} isRefreshing={isRefreshing} />
             <div className="w-full h-0.25 bg-[#A594F9]" />
           </div>
           <div className="flex w-full justify-center items-center gap-2 pb-2.5 animate-fade-in-up animate-delay-150">
