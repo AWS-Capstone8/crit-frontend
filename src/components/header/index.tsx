@@ -12,12 +12,22 @@ const Header = () => {
   const currentPath = location.pathname;
   const channelName = useUserStore(s => s.channelName);
   const clearUser = useUserStore(s => s.clearUser);
+  const channelURL = useUserStore(s => s.channelURL);
+  const isLoggedIn = !!channelURL;
   const [showModal, setShowModal] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     clearUser();
     navigate('/login');
+  };
+
+  const handleAnalysisClick = () => {
+    if (!isLoggedIn) {
+      alert('채널분석은 로그인 후 이용 가능합니다.');
+      return;
+    }
+    navigate('/analysis');
   };
 
   return (
@@ -34,7 +44,7 @@ const Header = () => {
         </div>
         <div
           className="flex w-24 h-9 flex-col justify-center text-center cursor-pointer typo-body2"
-          onClick={() => navigate('/analysis')}
+          onClick={handleAnalysisClick}
         >
           <div className={currentPath === '/analysis' ? 'text-[#6B4EFF]' : 'text-black'}>
             채널분석
