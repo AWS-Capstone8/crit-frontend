@@ -92,6 +92,26 @@ const LoginPage = () => {
             </div>
           </button>
 
+          <button
+            type="button"
+            onClick={() => navigate('/recommend')}
+            className="flex h-[54px] px-2 py-4 justify-center items-center self-stretch rounded-[10px] border border-[#E6E8E7] bg-white cursor-pointer hover:bg-gray-50"
+          >
+            <span
+              className="text-[#969696]"
+              style={{
+                fontFamily: 'Pretendard',
+                fontSize: '18px',
+                fontStyle: 'normal',
+                fontWeight: 500,
+                lineHeight: '28px',
+                letterSpacing: '1px',
+              }}
+            >
+              비회원으로 둘러보기
+            </span>
+          </button>
+
           {import.meta.env.VITE_USE_MOCK === 'true' && (
             <button
               type="button"
