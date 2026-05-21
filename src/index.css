@@ -217,6 +217,10 @@
     opacity: var(--collapse-opacity, 1);
   }
 
+  .collapse-panel.is-open {
+    overflow: visible;
+  }
+
   /* ===== 프로그레스 바 (--progress-track, --progress-fill, --progress-width) ===== */
 
   .progress-bar-track {

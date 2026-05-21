@@ -5,6 +5,7 @@ import PersonIcon from '@/assets/icons/person-icon.svg?react';
 import CritLogo from '@/assets/icons/critLogo.svg?react';
 import useUserStore from '@/stores/useUserStore';
 import UserInfoModal from '@/pages/userInfoModal';
+import ConfirmModal from '@/components/confirmModal';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Header = () => {
   const channelURL = useUserStore(s => s.channelURL);
   const isLoggedIn = !!channelURL;
   const [showModal, setShowModal] = useState(false);
+  const [showLoginRequiredModal, setShowLoginRequiredModal] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -24,7 +26,7 @@ const Header = () => {
 
   const handleAnalysisClick = () => {
     if (!isLoggedIn) {
-      alert('채널분석은 로그인 후 이용 가능합니다.');
+      setShowLoginRequiredModal(true);
       return;
     }
     navigate('/analysis');
@@ -74,6 +76,17 @@ const Header = () => {
         <PersonIcon className="w-6 h-6 cursor-pointer" onClick={() => setShowModal(true)} />
       </div>
       {showModal && <UserInfoModal onClose={() => setShowModal(false)} />}
+      {showLoginRequiredModal && (
+        <ConfirmModal
+          message="채널분석은 로그인 후 이용 가능합니다."
+          onConfirm={() => setShowLoginRequiredModal(false)}
+          secondaryLabel="로그인 하러 가기"
+          onSecondary={() => {
+            setShowLoginRequiredModal(false);
+            navigate('/login');
+          }}
+        />
+      )}
     </div>
   );
 };
