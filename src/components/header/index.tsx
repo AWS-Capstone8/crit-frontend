@@ -12,12 +12,22 @@ const Header = () => {
   const currentPath = location.pathname;
   const channelName = useUserStore(s => s.channelName);
   const clearUser = useUserStore(s => s.clearUser);
+  const channelURL = useUserStore(s => s.channelURL);
+  const isLoggedIn = !!channelURL;
   const [showModal, setShowModal] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     clearUser();
     navigate('/login');
+  };
+
+  const handleAnalysisClick = () => {
+    if (!isLoggedIn) {
+      alert('채널분석은 로그인 후 이용 가능합니다.');
+      return;
+    }
+    navigate('/analysis');
   };
 
   return (
@@ -34,7 +44,7 @@ const Header = () => {
         </div>
         <div
           className="flex w-24 h-9 flex-col justify-center text-center cursor-pointer typo-body2"
-          onClick={() => navigate('/analysis')}
+          onClick={handleAnalysisClick}
         >
           <div className={currentPath === '/analysis' ? 'text-[#6B4EFF]' : 'text-black'}>
             채널분석
@@ -45,8 +55,19 @@ const Header = () => {
         </div>
       </div>
       <div className="flex h-9 justify-center items-center whitespace-nowrap">
-        <div className="text-[#6B4EFF] typo-body2">{channelName}</div>
-        <div className="text-black typo-body2">&nbsp;님 어서오세요!</div>
+        {isLoggedIn ? (
+          <>
+            <div className="text-[#6B4EFF] typo-body2">{channelName}</div>
+            <div className="text-black typo-body2">&nbsp;님 어서오세요!</div>
+          </>
+        ) : (
+          <div
+            className="text-[#6B4EFF] typo-body2 cursor-pointer hover:underline"
+            onClick={() => navigate('/login')}
+          >
+            로그인
+          </div>
+        )}
       </div>
       <div className="flex h-11 items-center justify-end gap-5">
         <LogoutIcon className="w-6 h-6 cursor-pointer" onClick={handleLogout} />
