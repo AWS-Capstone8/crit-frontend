@@ -30,18 +30,23 @@ interface FormListProps {
 }
 
 const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
-  const [collapsed, setCollapsed] = useState(false);
-  const [searched, setSearched] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    const { autoSelectSubject, formInput } = useRecommendStore.getState();
+    return autoSelectSubject && !!formInput.keywords;
+  });
+  const [searched, setSearched] = useState(() => {
+    const { autoSelectSubject, formInput } = useRecommendStore.getState();
+    return autoSelectSubject && !!formInput.keywords;
+  });
   const channelURL = useUserStore(s => s.channelURL);
   const [errorMsg, setErrorMsg] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
-  const { setRecommendations, setFormInput, formInput, autoSelectSubject } = useRecommendStore(
+  const { setRecommendations, setFormInput, formInput } = useRecommendStore(
     useShallow(s => ({
       setRecommendations: s.setRecommendations,
       setFormInput: s.setFormInput,
       formInput: s.formInput,
-      autoSelectSubject: s.autoSelectSubject,
     })),
   );
 
@@ -63,14 +68,6 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, []);
-
-  // autoSelectSubject가 true면 폼을 접은 상태로 시작
-  useEffect(() => {
-    if (autoSelectSubject && formInput.keywords) {
-      setCollapsed(true);
-      setSearched(true);
-    }
-  }, [autoSelectSubject, formInput.keywords]);
 
   const handleCategoryToggle = (category: string, checked: boolean) => {
     setSelectedCategories(prev =>

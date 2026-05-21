@@ -15,6 +15,7 @@ const RecommendPage = () => {
   const initialKeyword = (location.state as { keyword?: string })?.keyword || '';
 
   const autoSelectSubject = useRecommendStore(s => s.autoSelectSubject);
+  const setAutoSelectSubject = useRecommendStore(s => s.setAutoSelectSubject);
   const clearRecommendStore = useRecommendStore(s => s.clear);
   const clearAIFormStore = useAIFormStore(s => s.clear);
 
@@ -25,6 +26,15 @@ const RecommendPage = () => {
 
   const [showSubject, setShowSubject] = useState(isAutoEntry);
   const [showAnswer, setShowAnswer] = useState(isAutoEntry);
+
+  // 외부 진입 플래그는 마운트 시 한 번 소비 (React state가 아닌 store만 갱신)
+  useEffect(() => {
+    const { autoSelectSubject, selectedSubjectIndex, recommendations } =
+      useRecommendStore.getState();
+    if (autoSelectSubject && selectedSubjectIndex !== null && recommendations.length > 0) {
+      setAutoSelectSubject(false);
+    }
+  }, [setAutoSelectSubject]);
 
   // 페이지 떠날 때 store 초기화 (autoSelectSubject가 아닌 경우에만)
   useEffect(() => {

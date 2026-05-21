@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const steps = [0, 5, 10, 15, 20, 25, 30];
 
@@ -19,12 +19,6 @@ const TimeSlider = ({
   const [dragging, setDragging] = useState(false);
 
   const value = controlledValue ?? internalValue;
-
-  useEffect(() => {
-    if (controlledValue !== undefined) {
-      setInternalValue(controlledValue);
-    }
-  }, [controlledValue]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = Number(e.target.value);

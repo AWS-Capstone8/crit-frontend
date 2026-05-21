@@ -12,39 +12,28 @@ interface FormSubjectProps {
 const FormSubject = ({ onSelect }: FormSubjectProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number | undefined>(undefined);
-  const { recommendations, formInput, selectedSubjectIndex, autoSelectSubject } = useRecommendStore(
+  const { recommendations, formInput } = useRecommendStore(
     useShallow(s => ({
       recommendations: s.recommendations,
       formInput: s.formInput,
-      selectedSubjectIndex: s.selectedSubjectIndex,
-      autoSelectSubject: s.autoSelectSubject,
     })),
   );
-  const setAutoSelectSubject = useRecommendStore(s => s.setAutoSelectSubject);
   const setData = useAIFormStore(s => s.setData);
 
-  // autoSelectSubject일 때 초기 상태 설정
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(
-    autoSelectSubject ? selectedSubjectIndex : null,
-  );
-  const [collapsed, setCollapsed] = useState(autoSelectSubject && selectedSubjectIndex !== null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(() => {
+    const { autoSelectSubject, selectedSubjectIndex } = useRecommendStore.getState();
+    return autoSelectSubject ? selectedSubjectIndex : null;
+  });
+  const [collapsed, setCollapsed] = useState(() => {
+    const { autoSelectSubject, selectedSubjectIndex } = useRecommendStore.getState();
+    return autoSelectSubject && selectedSubjectIndex !== null;
+  });
 
   useEffect(() => {
     if (contentRef.current) {
       setContentHeight(contentRef.current.scrollHeight);
     }
   }, [recommendations]);
-
-  // 외부에서 주제 선택 후 진입한 경우 (API는 이미 호출됨)
-  useEffect(() => {
-    if (autoSelectSubject && selectedSubjectIndex !== null && recommendations.length > 0) {
-      setSelectedIndex(selectedSubjectIndex);
-      setCollapsed(true);
-      // selectedSubjectIndex는 유지하고 autoSelectSubject만 false로
-      setAutoSelectSubject(false);
-      onSelect?.();
-    }
-  }, [autoSelectSubject, selectedSubjectIndex, recommendations, setAutoSelectSubject, onSelect]);
 
   const handleClick = async (index: number) => {
     setSelectedIndex(index);
