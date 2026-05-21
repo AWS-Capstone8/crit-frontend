@@ -9,23 +9,17 @@ const formAnswer = () => {
         영상 기획 카드
       </div>
       <div className="flex w-full gap-4 justify-start">
-        <div className="animate-fade-in-up flex-1" style={{ animationDelay: '0.15s' }}>
+        <div className="animate-fade-in-up animate-delay-150 flex-1">
           <VideoTitle />
         </div>
-        <div className="animate-fade-in-up flex-1" style={{ animationDelay: '0.3s' }}>
+        <div className="animate-fade-in-up animate-delay-300 flex-1">
           <Thumbnail />
         </div>
       </div>
-      <div
-        className="flex w-full h-6 typo-title2 text-[#0A0A0A] animate-fade-in-up"
-        style={{ animationDelay: '0.45s' }}
-      >
+      <div className="flex w-full h-6 typo-title2 text-[#0A0A0A] animate-fade-in-up animate-delay-450">
         스크립트 에디터
       </div>
-      <div
-        className="flex w-full justify-start animate-fade-in-up"
-        style={{ animationDelay: '0.6s' }}
-      >
+      <div className="flex w-full justify-start animate-fade-in-up animate-delay-600">
         <ScriptEditor />
       </div>
     </div>

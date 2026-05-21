@@ -17,8 +17,7 @@ const TabList = ({ tabs, defaultTab = 0, onChange }: TabListProps) => {
   return (
     <div className="relative flex w-155 h-16 px-4 py-0.5 justify-center items-center rounded-xl opacity-90 bg-[#6B4EFF]">
       <div
-        className="absolute w-72 h-11 rounded-xl bg-white transition-transform duration-300 ease-in-out"
-        style={{ transform: `translateX(${activeIndex === 0 ? '-50%' : '50%'})` }}
+        className={`absolute w-72 h-11 rounded-xl bg-white transition-transform duration-300 ease-in-out ${activeIndex === 0 ? 'tab-indicator-left' : 'tab-indicator-right'}`}
       />
       {tabs.map((tab, index) => (
         <div

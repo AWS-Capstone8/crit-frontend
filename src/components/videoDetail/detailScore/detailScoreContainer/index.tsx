@@ -117,10 +117,18 @@ const DetailScoreContainer = ({ factorName }: ScoreContainerProps) => {
           </div>
         </div>
       </div>
-      <div className="w-full h-2 rounded-full" style={{ backgroundColor: config.barTrack }}>
+      <div
+        className="w-full h-2 rounded-full progress-bar-track"
+        style={{ '--progress-track': config.barTrack } as React.CSSProperties}
+      >
         <div
-          className="h-2 rounded-full transition-all duration-500"
-          style={{ width: showLoading ? '0%' : `${score}%`, backgroundColor: config.barFill }}
+          className="h-2 rounded-full transition-all duration-500 progress-bar-fill"
+          style={
+            {
+              '--progress-width': showLoading ? '0%' : `${score}%`,
+              '--progress-fill': config.barFill,
+            } as React.CSSProperties
+          }
         />
       </div>
 

@@ -99,7 +99,7 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
     setCollapsed(true);
     setSearched(true);
 
-    const requestURL = useChannelData ? (channelURL || '') : '';
+    const requestURL = useChannelData ? channelURL || '' : '';
 
     try {
       const res = await postRecommend({
@@ -125,8 +125,13 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
     <div className="flex w-250 pt-18 pb-12 px-8 flex-col justify-end items-center gap-10 rounded-xl bg-[#F5EFFF]">
       <div
         ref={contentRef}
-        className="flex flex-col overflow-hidden transition-all duration-500 ease-in-out gap-4"
-        style={{ maxHeight: collapsed ? 0 : contentHeight, opacity: collapsed ? 0 : 1 }}
+        className="flex flex-col collapse-panel gap-4"
+        style={
+          {
+            '--collapse-max-height': collapsed ? '0px' : `${contentHeight}px`,
+            '--collapse-opacity': collapsed ? 0 : 1,
+          } as React.CSSProperties
+        }
       >
         <div className="flex justify-center w-full typo-body1-medium text-[#717171] text-center whitespace-pre-line">
           {
@@ -146,7 +151,9 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
               </div>
               <div className="flex flex-col items-start gap-2 justify-center h-full w-60 shrink-0">
                 <div className="typo-body1-medium text-[#0A0A0A]">내 채널 스타일 반영</div>
-                <label className={`flex items-center gap-2 ${isLoggedIn ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
+                <label
+                  className={`flex items-center gap-2 ${isLoggedIn ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}
+                >
                   <input
                     type="checkbox"
                     checked={useChannelData}
@@ -155,7 +162,11 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
                     className="w-5 h-5 accent-[#7C5CFF]"
                   />
                   <span className="typo-label text-[#717171] whitespace-nowrap">
-                    {!isLoggedIn ? '로그인 후 사용 가능' : useChannelData ? '채널 데이터를 분석하여 맞춤 추천' : '키워드·카테고리만으로 추천'}
+                    {!isLoggedIn
+                      ? '로그인 후 사용 가능'
+                      : useChannelData
+                        ? '채널 데이터를 분석하여 맞춤 추천'
+                        : '키워드·카테고리만으로 추천'}
                   </span>
                 </label>
               </div>
@@ -202,8 +213,7 @@ const FormList = ({ onSearch, initialKeyword = '' }: FormListProps) => {
             className="absolute right-0 flex items-center gap-1 cursor-pointer text-[#0a0a0a89] active:text-[#6B4EFF] typo-label"
           >
             <svg
-              className="w-4 h-4 transition-transform duration-300"
-              style={{ transform: collapsed ? 'rotate(0deg)' : 'rotate(180deg)' }}
+              className={`w-4 h-4 transition-transform duration-300 ${collapsed ? 'rotate-0' : 'rotate-180'}`}
               viewBox="0 0 16 16"
             >
               <path

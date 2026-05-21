@@ -28,7 +28,9 @@ const ScriptEditor = () => {
             {script ? (
               formatScript(script)
             ) : (
-              <span className="animate-loading-pulse text-gray-400">검색 후 대본이 표시됩니다.</span>
+              <span className="animate-loading-pulse text-gray-400">
+                검색 후 대본이 표시됩니다.
+              </span>
             )}
           </div>
           {script && (
@@ -43,10 +45,7 @@ const ScriptEditor = () => {
           )}
         </div>
       </div>
-      <div
-        className="flex w-70 shrink-0 flex-col gap-4 animate-fade-in-up"
-        style={{ animationDelay: '0.15s' }}
-      >
+      <div className="flex w-70 shrink-0 flex-col gap-4 animate-fade-in-up animate-delay-150">
         <div className="flex w-full typo-title-bold text-[#0A0A0A] items-stretch">
           참고 영상 및 크리에이터 추천
         </div>

@@ -26,20 +26,30 @@ const metricLabels: Record<string, string> = {
 
 const formatMetricValue = (metric: string, value: number): string => {
   switch (metric) {
-    case 'vps': return value.toFixed(3);
-    case 'dailyViews': return value >= 10000 ? `${(value / 10000).toFixed(1)}만` : Math.round(value).toLocaleString();
-    case 'uploadFrequency': return `주 ${value.toFixed(1)}회`;
-    case 'avgDuration': return `${value.toFixed(1)}분`;
-    case 'engagement': return (value * 100).toFixed(2) + '%';
-    case 'shortFormRatio': return (value * 100).toFixed(0) + '%';
-    default: return value.toFixed(2);
+    case 'vps':
+      return value.toFixed(3);
+    case 'dailyViews':
+      return value >= 10000
+        ? `${(value / 10000).toFixed(1)}만`
+        : Math.round(value).toLocaleString();
+    case 'uploadFrequency':
+      return `주 ${value.toFixed(1)}회`;
+    case 'avgDuration':
+      return `${value.toFixed(1)}분`;
+    case 'engagement':
+      return (value * 100).toFixed(2) + '%';
+    case 'shortFormRatio':
+      return (value * 100).toFixed(0) + '%';
+    default:
+      return value.toFixed(2);
   }
 };
 
 const GuideItem = ({ comment, subcomment, metric, current, target, benchmark }: GuideItemProps) => {
-  const progressPercent = benchmark && current != null && benchmark.p75 > 0
-    ? Math.min(100, (current / benchmark.p75) * 100)
-    : 0;
+  const progressPercent =
+    benchmark && current != null && benchmark.p75 > 0
+      ? Math.min(100, (current / benchmark.p75) * 100)
+      : 0;
 
   return (
     <div className="flex w-full px-5 py-5 justify-start items-start gap-2.5 self-stretch rounded-xl bg-[#F5EFFF]">
@@ -52,18 +62,23 @@ const GuideItem = ({ comment, subcomment, metric, current, target, benchmark }: 
             <div className="flex justify-between items-center">
               <span className="text-xs text-[#717171]">{metricLabels[metric] ?? metric}</span>
               <span className="text-xs font-semibold text-[#7C5CFF]">
-                {formatMetricValue(metric, current)} → {target != null ? formatMetricValue(metric, target) : '-'}
+                {formatMetricValue(metric, current)} →{' '}
+                {target != null ? formatMetricValue(metric, target) : '-'}
               </span>
             </div>
             <div className="relative w-full h-2 bg-[#E8E0FF] rounded-full overflow-hidden">
               <div
-                className="absolute h-full bg-[#7C5CFF] rounded-full transition-all"
-                style={{ width: `${progressPercent}%` }}
+                className="absolute h-full bg-[#7C5CFF] rounded-full transition-all benchmark-progress-fill"
+                style={{ '--benchmark-progress': progressPercent } as React.CSSProperties}
               />
               {benchmark.p50 > 0 && (
                 <div
-                  className="absolute top-0 h-full w-0.5 bg-[#A594F9]"
-                  style={{ left: `${Math.min(100, (benchmark.p50 / benchmark.p75) * 100)}%` }}
+                  className="absolute top-0 h-full w-0.5 bg-[#A594F9] benchmark-marker"
+                  style={
+                    {
+                      '--benchmark-marker': Math.min(100, (benchmark.p50 / benchmark.p75) * 100),
+                    } as React.CSSProperties
+                  }
                   title="중간값"
                 />
               )}
