@@ -55,8 +55,19 @@ const Header = () => {
         </div>
       </div>
       <div className="flex h-9 justify-center items-center whitespace-nowrap">
-        <div className="text-[#6B4EFF] typo-body2">{channelName}</div>
-        <div className="text-black typo-body2">&nbsp;님 어서오세요!</div>
+        {isLoggedIn ? (
+          <>
+            <div className="text-[#6B4EFF] typo-body2">{channelName}</div>
+            <div className="text-black typo-body2">&nbsp;님 어서오세요!</div>
+          </>
+        ) : (
+          <div
+            className="text-[#6B4EFF] typo-body2 cursor-pointer hover:underline"
+            onClick={() => navigate('/login')}
+          >
+            로그인
+          </div>
+        )}
       </div>
       <div className="flex h-11 items-center justify-end gap-5">
         <LogoutIcon className="w-6 h-6 cursor-pointer" onClick={handleLogout} />
